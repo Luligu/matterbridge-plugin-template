@@ -77,7 +77,7 @@ export let consoleErrorSpy: jest.SpiedFunction<typeof console.log>;
 export function setupTest(name: string, debug: boolean = false): void {
   expect(name).toBeDefined();
   expect(typeof name).toBe('string');
-  expect(name.length).toBeGreaterThanOrEqual(4); // avoid accidental deletion of short paths like "/" or "C:\"
+  expect(name.length).toBeGreaterThanOrEqual(4);
 
   // Cleanup any existing home directory
   rmSync(path.join('jest', name), { recursive: true, force: true });
