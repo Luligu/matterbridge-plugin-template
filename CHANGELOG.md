@@ -25,7 +25,7 @@ All notable changes to this project will be documented in this file.
 - [workflows]: Ignore any .md in codeql.yaml.
 - [workflows]: Ignore any .md in codecov.yaml.
 - [template]: Updated bug_report.md.
-- [jest]: Updated jestHelpers to v. 1.0.7.
+- [jest]: Updated jestHelpers to v. 1.0.8.
 - [workflows]: Improved speed on Node CI.
 - [devcontainer]: Added the plugin name to the container.
 - [devcontainer]: Improved performance of first build with shallow clone.
