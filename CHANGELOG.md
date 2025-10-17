@@ -10,6 +10,26 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2025-10-17
+
+### Breaking Changes
+
+- [node]: Requires node.js 20.x or 22.x or 24.x (LTS versions). Node.js 18.x is no longer supported.
+- [platform]: Requires Matterbridge v.3.3.0.
+- [platform]: Upgrade to the new PlatformMatterbridge signature.
+
+### Changed
+
+- [package]: Bumped package to automator version 2.0.8
+- [workflows]: Ignore any .md in build.yaml.
+- [workflows]: Ignore any .md in codeql.yaml.
+- [workflows]: Ignore any .md in codecov.yaml.
+- [template]: Updated bug_report.md.
+- [jest]: Updated jestHelpers to v. 1.0.7.
+- [workflows]: Improved speed on Node CI.
+- [devcontainer]: Added the plugin name to the container.
+- [devcontainer]: Improved performance of first build with shallow clone.
+
 ## [1.0.0] - 2025-06-15
 
 - First release of the Matterbridge plugin template

@@ -3,7 +3,7 @@
  * @file src/helpers.test.ts
  * @author Luca Liguori
  * @created 2025-09-03
- * @version 1.0.7
+ * @version 1.0.8
  * @license Apache-2.0
  *
  * Copyright 2025, 2026, 2027 Luca Liguori.
@@ -131,24 +131,24 @@ export function setDebug(debug: boolean): void {
 /**
  * Create a matter Environment for testing:
  * - it will remove any existing home directory
- * - setup the matter environment with homeDir, debug logging and ANSI format
+ * - setup the matter environment with name, debug logging and ANSI format
  *
- * @param {string} homeDir Home directory for the environment.
- * @returns {Environment}  The default matter environment.
+ * @param {string} name - Name for the environment (jest/name).
+ * @returns {Environment} - The default matter environment.
  */
-export function createTestEnvironment(homeDir: string): Environment {
-  expect(homeDir).toBeDefined();
-  expect(typeof homeDir).toBe('string');
-  expect(homeDir.length).toBeGreaterThanOrEqual(4); // avoid accidental deletion of short paths like "/" or "C:\"
+export function createTestEnvironment(name: string): Environment {
+  expect(name).toBeDefined();
+  expect(typeof name).toBe('string');
+  expect(name.length).toBeGreaterThanOrEqual(4); // avoid accidental deletion of short paths like "/" or "C:\"
 
   // Cleanup any existing home directory
-  rmSync(homeDir, { recursive: true, force: true });
+  rmSync(path.join('jest', name), { recursive: true, force: true });
 
   // Setup the matter environment
   const environment = Environment.default;
   environment.vars.set('log.level', MatterLogLevel.DEBUG);
   environment.vars.set('log.format', MatterLogFormat.ANSI);
-  environment.vars.set('path.root', path.join(homeDir, '.matterbridge', MATTER_STORAGE_NAME));
+  environment.vars.set('path.root', path.join('jest', name, '.matterbridge', MATTER_STORAGE_NAME));
   environment.vars.set('runtime.signals', false);
   environment.vars.set('runtime.exitcode', false);
   return environment;
@@ -157,23 +157,23 @@ export function createTestEnvironment(homeDir: string): Environment {
 /**
  * Create a Matterbridge instance for testing without initializing it.
  *
- * @param {string} homeDir Home directory for the Matterbridge instance.
+ * @param {string} name - Name for the environment (jest/name).
  * @returns {Promise<Matterbridge>} The Matterbridge instance.
  */
-export async function createMatterbridgeEnvironment(homeDir: string): Promise<Matterbridge> {
+export async function createMatterbridgeEnvironment(name: string): Promise<Matterbridge> {
   // Create a MatterbridgeEdge instance
   const matterbridge = await Matterbridge.loadInstance(false);
   expect(matterbridge).toBeDefined();
   expect(matterbridge).toBeInstanceOf(Matterbridge);
-  matterbridge.rootDirectory = homeDir;
-  matterbridge.homeDirectory = path.join(homeDir);
-  matterbridge.matterbridgeDirectory = path.join(homeDir, '.matterbridge');
-  matterbridge.matterbridgePluginDirectory = path.join(homeDir, 'Matterbridge');
-  matterbridge.matterbridgeCertDirectory = path.join(homeDir, '.mattercert');
+  matterbridge.rootDirectory = path.join('jest', name);
+  matterbridge.homeDirectory = path.join('jest', name);
+  matterbridge.matterbridgeDirectory = path.join('jest', name, '.matterbridge');
+  matterbridge.matterbridgePluginDirectory = path.join('jest', name, 'Matterbridge');
+  matterbridge.matterbridgeCertDirectory = path.join('jest', name, '.mattercert');
 
   // Setup matter environment
   // @ts-expect-error - access to private member for testing
-  matterbridge.environment = createTestEnvironment(homeDir);
+  matterbridge.environment = createTestEnvironment(name);
   // @ts-expect-error - access to private member for testing
   expect(matterbridge.environment).toBeDefined();
   // @ts-expect-error - access to private member for testing
@@ -231,8 +231,8 @@ export async function startMatterbridgeEnvironment(matterbridge: Matterbridge): 
   expect(aggregator.lifecycle.hasId).toBeTruthy();
   expect(aggregator.lifecycle.hasNumber).toBeTruthy();
 
-  // Ensure the queue is empty and pause 500ms
-  await flushAsync(undefined, undefined, 500);
+  // Ensure the queue is empty and pause
+  await flushAsync();
 
   return [server, aggregator];
 }
@@ -269,8 +269,8 @@ export async function stopMatterbridgeEnvironment(
   // stop the mDNS service
   await server.env.get(MdnsService)[Symbol.asyncDispose]();
 
-  // Ensure the queue is empty and pause 500ms
-  await flushAsync(undefined, undefined, 500);
+  // Ensure the queue is empty and pause
+  await flushAsync();
 
   // Stop the matter storage
   // @ts-expect-error - access to private member for testing
@@ -278,8 +278,14 @@ export async function stopMatterbridgeEnvironment(
   expect(matterbridge.matterStorageService).not.toBeDefined();
   expect(matterbridge.matterStorageManager).not.toBeDefined();
   expect(matterbridge.matterbridgeContext).not.toBeDefined();
+}
 
-  // Close the Matterbridge instance
+/**
+ * Destroy the matterbridge environment
+ *
+ * @param {Matterbridge} matterbridge The Matterbridge instance to stop.
+ */
+export async function destroyMatterbridgeEnvironment(matterbridge: Matterbridge): Promise<void> {
   await matterbridge.destroyInstance(10);
 }
 
