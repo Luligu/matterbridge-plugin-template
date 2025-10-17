@@ -269,15 +269,15 @@ export async function stopMatterbridgeEnvironment(
   // stop the mDNS service
   await server.env.get(MdnsService)[Symbol.asyncDispose]();
 
-  // Ensure the queue is empty and pause
-  await flushAsync();
-
   // Stop the matter storage
   // @ts-expect-error - access to private member for testing
   await matterbridge.stopMatterStorage();
   expect(matterbridge.matterStorageService).not.toBeDefined();
   expect(matterbridge.matterStorageManager).not.toBeDefined();
   expect(matterbridge.matterbridgeContext).not.toBeDefined();
+
+  // Ensure the queue is empty and pause
+  await flushAsync();
 }
 
 /**
@@ -298,10 +298,10 @@ export async function destroyMatterbridgeEnvironment(matterbridge: Matterbridge)
  *
  * @param {number} ticks       Number of macrotask (setImmediate) turns to yield (default 3).
  * @param {number} microTurns  Number of microtask drains (Promise.resolve chains) after macrotask yielding (default 10).
- * @param {number} pause       Final timer delay in ms; set 0 to disable (default 100ms).
+ * @param {number} pause       Final timer delay in ms; set 0 to disable (default 250ms).
  * @returns {Promise<void>}        Resolves after the requested event loop advancement has completed.
  */
-export async function flushAsync(ticks: number = 3, microTurns: number = 10, pause: number = 100): Promise<void> {
+export async function flushAsync(ticks: number = 3, microTurns: number = 10, pause: number = 250): Promise<void> {
   for (let i = 0; i < ticks; i++) await new Promise((resolve) => setImmediate(resolve));
   for (let i = 0; i < microTurns; i++) await Promise.resolve();
   if (pause) await new Promise((resolve) => setTimeout(resolve, pause));
@@ -450,7 +450,7 @@ export async function startServerNode(name: string, port: number): Promise<[Serv
   expect(aggregator.lifecycle.hasNumber).toBeTruthy();
 
   // Ensure the queue is empty and pause 100ms
-  await flushAsync(undefined, undefined, 200);
+  await flushAsync();
 
   return [server, aggregator];
 }
@@ -480,7 +480,7 @@ export async function stopServerNode(server: ServerNode<ServerNode.RootEndpoint>
   await server.env.get(MdnsService)[Symbol.asyncDispose]();
 
   // Ensure the queue is empty and pause 100ms
-  await flushAsync(undefined, undefined, 200);
+  await flushAsync();
 }
 
 /**
@@ -514,7 +514,7 @@ export async function addDevice(owner: ServerNode<ServerNode.RootEndpoint> | End
   expect(device.lifecycle.hasId).toBeTruthy();
   expect(device.lifecycle.hasNumber).toBeTruthy();
   expect(device.construction.status).toBe(Lifecycle.Status.Active);
-  await flushAsync(1, 1, pause);
+  await flushAsync(undefined, undefined, pause);
   return true;
 }
 
@@ -549,6 +549,6 @@ export async function deleteDevice(owner: ServerNode<ServerNode.RootEndpoint> | 
   expect(device.lifecycle.hasId).toBeTruthy();
   expect(device.lifecycle.hasNumber).toBeTruthy();
   expect(device.construction.status).toBe(Lifecycle.Status.Destroyed);
-  await flushAsync(1, 1, pause);
+  await flushAsync(undefined, undefined, pause);
   return true;
 }
