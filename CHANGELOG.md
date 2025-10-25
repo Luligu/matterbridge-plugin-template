@@ -10,6 +10,13 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2025-10-25
+
+### Changed
+
+- [package]: Bumped package to automator v. 2.0.9.
+- [jest]: Updated jestHelpers to v. 1.0.9.
+
 ## [1.0.1] - 2025-10-17
 
 ### Breaking Changes
