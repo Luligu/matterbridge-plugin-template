@@ -105,7 +105,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     // Example: Create and register an outlet device
     // If you want to create an Accessory platform plugin and your platform extends MatterbridgeAccessoryPlatform,
     // instead of createDefaultBridgedDeviceBasicInformationClusterServer, call createDefaultBasicInformationClusterServer().
-    const outlet = new MatterbridgeEndpoint(onOffOutlet, { uniqueStorageKey: 'outlet1' })
+    const outlet = new MatterbridgeEndpoint(onOffOutlet, { id: 'outlet1' })
       .createDefaultBridgedDeviceBasicInformationClusterServer('Outlet', 'SN123456', this.matterbridge.aggregatorVendorId, 'Matterbridge', 'Matterbridge Outlet', 10000, '1.0.0')
       .createDefaultPowerSourceWiredClusterServer()
       .addRequiredClusterServers()
