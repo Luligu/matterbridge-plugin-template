@@ -59,10 +59,10 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
   override async onStart(reason?: string) {
     this.log.info(`onStart called with reason: ${reason ?? 'none'}`);
 
-    // Wait for the platform to fully load the select
+    // Wait for the platform to fully load the select if you use them.
     await this.ready;
 
-    // Clean the selectDevice and selectEntity maps, if you want to reset the select.
+    // Clean the selectDevice and selectEntity maps, if you want to reset the select. This is useful when you have an API that sends all the devices and you want to rediscover all of them.
     await this.clearSelect();
 
     // Implements your own logic there
