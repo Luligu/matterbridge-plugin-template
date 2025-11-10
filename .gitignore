@@ -18,5 +18,4 @@ temp/
 *.log
 
 # Package specific directories and files that should be ignored
-src\jestHelpers.ts
-src\jestHelpers.test.ts
+jestHelpers.*
