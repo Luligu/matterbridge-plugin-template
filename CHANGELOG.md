@@ -10,13 +10,13 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.3] - 2025-11-11
+## [1.0.3] - 2025-11-14
 
 ### Changed
 
 - [package]: Updated dependencies.
-- [package]: Bumped package to automator v. 2.0.12.
-- [jest]: Updated jestHelpers to v. 1.0.12.
+- [package]: Bumped package to automator v.2.0.12.
+- [jest]: Updated jestHelpers to v.1.0.12.
 - [workflows]: Use shallow clones and --no-fund --no-audit for faster builds.
 
 <a href="https://www.buymeacoffee.com/luligugithub">
