@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - [package]: Bumped package to automator v.2.0.12.
 - [jest]: Updated jestHelpers to v.1.0.12.
 - [workflows]: Use shallow clones and --no-fund --no-audit for faster builds.
+- [package]: Updated to the current Matterbridge signatures.
 
 <a href="https://www.buymeacoffee.com/luligugithub">
   <img src="bmc-button.svg" alt="Buy me a coffee" width="80">
