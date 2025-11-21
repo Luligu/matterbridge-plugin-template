@@ -61,7 +61,7 @@ The project has the following already configured workflows:
 1. Create a repository from this template using the [template feature of GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 2. Clone it locally and open the cloned folder project with [VS Code](https://code.visualstudio.com/). If you have docker or docker desktop, just run `code .`.
 3. When prompted, reopen in the devcontainer. VS Code will automatically build and start the development environment with all dependencies installed.
-4. Update the code and configuration files as needed for your plugin.
+4. Update the code and configuration files as needed for your plugin. Change the name (keep always matterbridge- at the beginning of the name), version, description, author, homepage, repository, bugs and funding in the package.json.
 5. Follow the instructions in the matterbridge [README-DEV](https://github.com/Luligu/matterbridge/blob/main/README-DEV.md) and comments in module.ts to implement your plugin logic.
 
 ## Using the Dev Container
