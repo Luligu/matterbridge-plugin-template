@@ -51,10 +51,10 @@ The project has the following already configured workflows:
 
 **Recommendations for private repos**:
 
-- Monitor your GitHub Actions usage in your account settings
-- Consider disabling some workflows or reducing the OS/Node.js version matrix
-- Review GitHub's [pricing for Actions](https://github.com/pricing) to understand costs
-- For public repositories, GitHub Actions are free with generous limits
+- Monitor your GitHub Actions usage in your account settings.
+- Consider disabling some workflows or reducing the OS/Node.js version matrix.
+- Review GitHub's [pricing for Actions](https://github.com/pricing) to understand costs.
+- For public repositories, GitHub Actions are free with generous limits.
 
 ## Getting Started
 
