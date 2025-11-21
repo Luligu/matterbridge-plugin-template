@@ -77,6 +77,12 @@ The project has the following already configured workflows:
 - All the source files are on host.
 - Since the dev container doesn't have network host and IPV6, is not possible to pair matterbridge from the Devcontainer but you can add your plugin to matterbridge and test it inside the devcontainer.
 
+When you want to test your plugin with a paired controller, you have several options:
+
+- create a tgz (npm run npmPack) and upload it to a running instance of matterbridge.
+- publish it with tag dev and install it (matterbridge-yourplugin@dev in Install plugins) in a running instance of matterbridge.
+- use a local instance of matterbridge running outside the dev container and install (../matterbridge-yourplugin in Install plugins) or add (../matterbridge-yourplugin in Install plugins) your plugin to it (easiest way). Adjust the path if matterbridge dir and your plugin dir are not in the same parent directory.
+
 ## Documentation
 
 Refer to the Matterbridge documentation for other guidelines.
