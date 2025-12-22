@@ -17,9 +17,7 @@ This repository provides a default template for developing Matterbridge plugins.
 
 If you like this project and find it useful, please consider giving it a star on GitHub at [Matterbridge Plugin Template](https://github.com/Luligu/matterbridge-plugin-template) and sponsoring it.
 
-<a href="https://www.buymeacoffee.com/luligugithub">
-  <img src="bmc-button.svg" alt="Buy me a coffee" width="120">
-</a>
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/bmc-button.svg" alt="Buy me a coffee" width="120"></a>
 
 ## Features
 
@@ -75,12 +73,33 @@ The project has the following already configured workflows:
 - To open a terminal in the devcontainer, use the VS Code terminal after the container starts.
 - All commands (npm, tsc, matterbridge etc.) will run inside the container environment.
 - All the source files are on host.
-- Since the dev container doesn't have network host and IPV6, is not possible to pair matterbridge from the Devcontainer but you can add your plugin to matterbridge and test it inside the devcontainer.
 
-When you want to test your plugin with a paired controller, you have several options:
+## Dev containers networking limitations
+
+Dev containers have networking limitations depending on the host OS and Docker setup.
+
+• Docker Desktop on Windows or macOS:
+
+- Runs inside a VM
+- Host networking mode is NOT available
+- Matterbridge and plugins can run but:
+  ❌ Pairing with Matter controllers will NOT work cause of missing mDNS support
+  ✅ Remote and local network access (cloud services, internet APIs) works normally
+  ✅ Matterbridge frontend works normally
+
+• Native Linux or WSL 2 with Docker Engine CLI integration:
+
+- Host networking IS available
+- Full local network access is supported with mDNS
+- Matterbridge and plugins work correctly, including pairing
+- Matterbridge frontend works normally
+
+## How to pair the plugin
+
+When you want to test your plugin with a paired controller and you cannot use native Linux or WSL 2 with Docker Engine, you have several other options:
 
 - create a tgz (npm run npmPack) and upload it to a running instance of matterbridge.
-- publish it with tag dev and install it (matterbridge-yourplugin@dev in Install plugins) in a running instance of matterbridge.
+- publish the plugin with tag dev and install it (matterbridge-yourplugin@dev in Install plugins) in a running instance of matterbridge.
 - use a local instance of matterbridge running outside the dev container and install (../matterbridge-yourplugin in Install plugins) or add (../matterbridge-yourplugin in Install plugins) your plugin to it (easiest way). Adjust the path if matterbridge dir and your plugin dir are not in the same parent directory.
 
 ## Documentation
