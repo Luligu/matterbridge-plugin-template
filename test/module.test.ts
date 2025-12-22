@@ -29,9 +29,9 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgePluginDirectory: path.join('jest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('jest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('jest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.3.0',
-  matterbridgeLatestVersion: '3.3.0',
-  matterbridgeDevVersion: '3.3.0',
+  matterbridgeVersion: '3.4.0',
+  matterbridgeLatestVersion: '3.4.0',
+  matterbridgeDevVersion: '3.4.0',
   bridgeMode: 'bridge',
   restartMode: '',
   aggregatorVendorId: VendorId(0xfff1),
@@ -39,6 +39,7 @@ const mockMatterbridge: PlatformMatterbridge = {
   aggregatorProductId: 0x8000,
   aggregatorProductName: 'Matterbridge aggregator',
   // Mocked methods
+  registerVirtualDevice: jest.fn(async (name: string, type: 'light' | 'outlet' | 'switch' | 'mounted_switch', callback: () => Promise<void>) => {}),
   addBridgedEndpoint: jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {}),
   removeBridgedEndpoint: jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {}),
   removeAllBridgedEndpoints: jest.fn(async (pluginName: string) => {}),
@@ -66,20 +67,33 @@ describe('Matterbridge Plugin Template', () => {
   });
 
   it('should throw an error if matterbridge is not the required version', async () => {
+    // @ts-expect-error Ignore readonly for testing purposes
     mockMatterbridge.matterbridgeVersion = '2.0.0'; // Simulate an older version
     expect(() => new TemplatePlatform(mockMatterbridge, mockLog, mockConfig)).toThrow(
-      'This plugin requires Matterbridge version >= "3.3.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
+      'This plugin requires Matterbridge version >= "3.4.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
     );
-    mockMatterbridge.matterbridgeVersion = '3.3.0';
+    // @ts-expect-error Ignore readonly for testing purposes
+    mockMatterbridge.matterbridgeVersion = '3.4.0';
   });
 
   it('should create an instance of the platform', async () => {
     instance = (await import('../src/module.ts')).default(mockMatterbridge, mockLog, mockConfig) as TemplatePlatform;
+    // @ts-expect-error Accessing private method for testing purposes
+    instance.setMatterNode(
+      // @ts-expect-error Accessing private method for testing purposes
+      mockMatterbridge.addBridgedEndpoint,
+      // @ts-expect-error Accessing private method for testing purposes
+      mockMatterbridge.removeBridgedEndpoint,
+      // @ts-expect-error Accessing private method for testing purposes
+      mockMatterbridge.removeAllBridgedEndpoints,
+      // @ts-expect-error Accessing private method for testing purposes
+      mockMatterbridge.registerVirtualDevice,
+    );
     expect(instance).toBeInstanceOf(TemplatePlatform);
     expect(instance.matterbridge).toBe(mockMatterbridge);
     expect(instance.log).toBe(mockLog);
     expect(instance.config).toBe(mockConfig);
-    expect(instance.matterbridge.matterbridgeVersion).toBe('3.3.0');
+    expect(instance.matterbridge.matterbridgeVersion).toBe('3.4.0');
     expect(mockLog.info).toHaveBeenCalledWith('Initializing Platform...');
   });
 
@@ -120,6 +134,7 @@ describe('Matterbridge Plugin Template', () => {
     mockConfig.unregisterOnShutdown = true;
     await instance.onShutdown();
     expect(mockLog.info).toHaveBeenCalledWith('onShutdown called with reason: none');
+    // @ts-expect-error Accessing private method for testing purposes
     expect(mockMatterbridge.removeAllBridgedEndpoints).toHaveBeenCalled();
     mockConfig.unregisterOnShutdown = false;
   });
