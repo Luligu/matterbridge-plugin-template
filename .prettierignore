@@ -13,4 +13,3 @@ temp/
 **/*.html
 
 # Package specific directories and files that should be ignored
-jestHelpers.*

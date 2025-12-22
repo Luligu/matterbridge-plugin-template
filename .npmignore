@@ -30,7 +30,6 @@ eslint.config.*
 install-matterbridge-dev.sh
 install-matterbridge-main.sh
 jest.config.*
-jestHelpers.*
 nodemon.json
 prettier.config.*
 TODO.md
@@ -44,4 +43,3 @@ vite.config.*
 *.log
 
 # Package specific directories and files that should be ignored
-jestHelpers.*
