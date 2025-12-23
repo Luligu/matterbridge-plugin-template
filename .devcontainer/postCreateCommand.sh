@@ -10,7 +10,7 @@ echo "1 - Installing updates and scripts..."
 sudo npm install -g npm npm-check-updates shx
 
 echo "2 - Building Matterbridge..."
-chmod +x .devcontainer/install-matterbridge-*.sh
+sudo chmod +x .devcontainer/install-matterbridge-*.sh
 # Use this for the main branch: .devcontainer/install-matterbridge-main.sh
 .devcontainer/install-matterbridge-dev.sh
 
