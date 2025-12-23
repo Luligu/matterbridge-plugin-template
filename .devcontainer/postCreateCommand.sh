@@ -11,6 +11,7 @@ sudo npm install -g npm npm-check-updates shx
 
 echo "2 - Building Matterbridge..."
 chmod +x .devcontainer/install-matterbridge-*.sh
+# Use this for the main branch: .devcontainer/install-matterbridge-main.sh
 .devcontainer/install-matterbridge-dev.sh
 
 echo "3 - Creating directories..."
