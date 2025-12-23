@@ -32,7 +32,7 @@ Dev containers have networking limitations depending on the host OS and Docker s
     "source=matterbridge,target=/matterbridge,type=volume"
   ],
   // On startup, update npm, install and link the dev of matterbridge and install and build the plugin
-  "postCreateCommand": "sudo npm install -g npm npm-check-updates shx && sudo chmod +x ./install-matterbridge-*.sh && ./install-matterbridge-dev.sh && sudo chown -R node:node . && npm install && npm link matterbridge && npm run build && npm outdated || true",
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
   "runArgs": [
     // Give the Docker container the same name as the repository (must be unique on host)
     "--name",
