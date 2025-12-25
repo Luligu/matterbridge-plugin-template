@@ -83,9 +83,9 @@ Dev containers have networking limitations depending on the host OS and Docker s
 - Runs inside a VM
 - Host networking mode is NOT available
 - Matterbridge and plugins can run but:
-  ❌ Pairing with Matter controllers will NOT work cause of missing mDNS support
-  ✅ Remote and local network access (cloud services, internet APIs) works normally
-  ✅ Matterbridge frontend works normally
+  - ❌ Pairing with Matter controllers will NOT work cause of missing mDNS support
+  - ✅ Remote and local network access (cloud services, internet APIs) works normally
+  - ✅ Matterbridge frontend works normally
 
 • Native Linux or WSL 2 with Docker Engine CLI integration:
 
