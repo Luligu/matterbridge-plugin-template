@@ -1,10 +1,10 @@
-# <img src="matterbridge.svg" alt="Matterbridge Logo" width="64px" height="64px">&nbsp;&nbsp;&nbsp;Matterbridge Plugin Template
+# <img src="https://matterbridge.io/assets/matterbridge.svg" alt="Matterbridge Logo" width="64px" height="64px">&nbsp;&nbsp;&nbsp;Matterbridge Plugin Template
 
 [![npm version](https://img.shields.io/npm/v/matterbridge.svg)](https://www.npmjs.com/package/matterbridge)
 [![npm downloads](https://img.shields.io/npm/dt/matterbridge.svg)](https://www.npmjs.com/package/matterbridge)
 [![Docker Version](https://img.shields.io/docker/v/luligu/matterbridge?label=docker%20version&sort=semver)](https://hub.docker.com/r/luligu/matterbridge)
 [![Docker Pulls](https://img.shields.io/docker/pulls/luligu/matterbridge.svg)](https://hub.docker.com/r/luligu/matterbridge)
-![Node.js CI](https://github.com/Luligu/matterbridge-plugin-template/actions/workflows/build-matterbridge-plugin.yml/badge.svg)
+![Node.js CI](https://github.com/Luligu/matterbridge-plugin-template/actions/workflows/build.yml/badge.svg)
 ![CodeQL](https://github.com/Luligu/matterbridge-plugin-template/actions/workflows/codeql.yml/badge.svg)
 [![codecov](https://codecov.io/gh/Luligu/matterbridge-plugin-template/branch/main/graph/badge.svg)](https://codecov.io/gh/Luligu/matterbridge-plugin-template)
 
@@ -17,7 +17,7 @@ This repository provides a default template for developing Matterbridge plugins.
 
 If you like this project and find it useful, please consider giving it a star on GitHub at [Matterbridge Plugin Template](https://github.com/Luligu/matterbridge-plugin-template) and sponsoring it.
 
-<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/bmc-button.svg" alt="Buy me a coffee" width="120"></a>
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="120"></a>
 
 ## Features
 
@@ -31,12 +31,12 @@ If you like this project and find it useful, please consider giving it a star on
 
 The project has the following already configured workflows:
 
-- build-matterbridge-plugin.yml: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
-- publish-matterbridge-plugin.yml: publish on npm when you create a new release in GitHub. Add your NPM_TOKEN to the repository secrets.
-- publish-matterbridge-plugin-dev-daily-from-dev.yml: publish a dev on npm from main branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
-- publish-matterbridge-plugin-dev-daily-from-main.yml: publish a dev on npm from dev branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
+- build.yml: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
+- publish.yml: publish on npm when you create a new release in GitHub. Add your NPM_TOKEN to the repository secrets.
+- publish-daily-dev-from-dev.yml: publish a dev on npm from main branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
+- publish-daily-dev-from-main.yml: publish a dev on npm from dev branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
 - codeql.yml: run CodeQL from the main branch on each push and pull request.
-- codecov.yml: run CodeCov from the main branch on each push and pull request. You need a codecov account and add your CODECOV_TOKEN to the repository secrets.
+- codecov.yml: run CodeCov from the main branch on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
 
 ## ⚠️ Warning: GitHub Actions Costs for Private Repositories
 
