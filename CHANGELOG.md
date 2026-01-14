@@ -113,7 +113,7 @@ All notable changes to this project will be documented in this file.
 - [Security 1]: Description of the security improvement.
 
 <a href="https://www.buymeacoffee.com/luligugithub">
-  <img src="bmc-button.svg" alt="Buy me a coffee" width="80">
+  <img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80">
 </a>
 
 -->
