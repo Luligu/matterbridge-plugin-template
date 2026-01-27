@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 - [package]: Updated dependencies.
 - [package]: Bumped package to automator v.3.0.2.
+- [package]: Published on npm.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
