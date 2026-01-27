@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
-  "homepage": "https://github.com/Luligu/matterbridge-plugin-template/blob/main/README.md",
+  "homepage": "https://www.npmjs.com/package/matterbridge-plugin-template",
   "license": "Apache-2.0",
   "type": "module",
   "main": "dist/module.js",
