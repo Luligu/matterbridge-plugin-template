@@ -18,10 +18,10 @@ jobs:
         with:
           ref: main
 
-      - name: Set up Node.js & registry
+      - name: Setup Node.js 24.x
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
           cache: npm
 
@@ -107,16 +107,3 @@ jobs:
         run: npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Trigger Matterbridge Docker Build Dev
-        if: steps.check_new.outputs.should_publish  == 'true'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.PAT_TOKEN }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: 'Luligu',
-              repo: 'matterbridge',
-              workflow_id: 'docker-buildx-dev.yml',
-              ref: 'dev'
-            })
