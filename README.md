@@ -7,6 +7,11 @@
 ![Node.js CI](https://github.com/Luligu/matterbridge-plugin-template/actions/workflows/build.yml/badge.svg)
 ![CodeQL](https://github.com/Luligu/matterbridge-plugin-template/actions/workflows/codeql.yml/badge.svg)
 [![codecov](https://codecov.io/gh/Luligu/matterbridge-plugin-template/branch/main/graph/badge.svg)](https://codecov.io/gh/Luligu/matterbridge-plugin-template)
+[![styled with prettier](https://img.shields.io/badge/styled_with-Prettier-f8bc45.svg?logo=prettier)](https://github.com/prettier/prettier)
+[![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![ESM](https://img.shields.io/badge/ESM-Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/api/esm.html)
+[![matterbridge.io](https://img.shields.io/badge/matterbridge.io-online-brightgreen)](https://matterbridge.io)
 
 [![powered by](https://img.shields.io/badge/powered%20by-matterbridge-blue)](https://www.npmjs.com/package/matterbridge)
 [![powered by](https://img.shields.io/badge/powered%20by-matter--history-blue)](https://www.npmjs.com/package/matter-history)
@@ -32,9 +37,7 @@ If you like this project and find it useful, please consider giving it a star on
 The project has the following already configured workflows:
 
 - build.yml: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
-- publish.yml: publish on npm when you create a new release in GitHub. Add your NPM_TOKEN to the repository secrets.
-- publish-daily-dev-from-dev.yml: publish a dev on npm from main branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
-- publish-daily-dev-from-main.yml: publish a dev on npm from dev branch every day at midnight UTC if there is a new commit. Add your NPM_TOKEN to the repository secrets.
+- publish.yml: publish on npm under tag latest when you create a new release in GitHub and publish under tag dev on npm from main (or dev if it exist) branch every day at midnight UTC if there is a new commit. The workflow has been updated for trusted publishing / OIDC, so you need to setup the package npm settings to allow it (i.e. authorize publish.yml).
 - codeql.yml: run CodeQL from the main branch on each push and pull request.
 - codecov.yml: run CodeCov from the main branch on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
 
@@ -67,8 +70,8 @@ The project has the following already configured workflows:
 - Docker Desktop or Docker Engine are required to use the Dev Container.
 - Devcontainer works correctly on Linux, macOS, Windows, WSL2.
 - The devcontainer provides Node.js, npm, TypeScript, ESLint, Prettier, Jest, Vitest and other tools and extensions pre-installed and configured.
-- The dev branch of Matterbridge is already build and installed into the Dev Container and linked to the plugin.
-- The devcontainer is optimized using named mounts for node_modules and matterbridge.
+- The dev branch of Matterbridge is already build and installed into the Dev Container and linked to the plugin. The plugin is automatically added to matterbridge.
+- The devcontainer is optimized using named mounts for node_modules, .cache and matterbridge.
 - You can run, build, and test your plugin directly inside the container.
 - To open a terminal in the devcontainer, use the VS Code terminal after the container starts.
 - All commands (npm, tsc, matterbridge etc.) will run inside the container environment.
