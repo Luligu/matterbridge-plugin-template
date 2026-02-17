@@ -116,6 +116,13 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
         this.log.info(`Command off called on cluster ${data.cluster}`);
       });
 
-    await this.registerDevice(outlet);
+    // Set the selectDevice for the outlet we created. This is used to link the device with the select in the frontend.
+    this.setSelectDevice('SN123456', 'Outlet');
+
+    // Validate the device with the select before registering it.
+    const selected = this.validateDevice(['Outlet', 'SN123456']);
+
+    // Register the device with this Matterbridge Platform.
+    if (selected) await this.registerDevice(outlet);
   }
 }

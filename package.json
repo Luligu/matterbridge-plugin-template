@@ -1,10 +1,11 @@
 {
   "name": "matterbridge-plugin-template",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
   "homepage": "https://www.npmjs.com/package/matterbridge-plugin-template",
   "license": "Apache-2.0",
+  "private": true,
   "type": "module",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
@@ -149,7 +150,7 @@
     "shx": "0.4.0",
     "ts-jest": "29.4.6",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.55.0",
+    "typescript-eslint": "8.56.0",
     "vitest": "4.0.18"
   },
   "overrides": {

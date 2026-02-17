@@ -8,6 +8,22 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - 2026-02-17
+
+### Added
+
+- [select]: Add select sytem.
+- [schema]: Add schema.
+- [config]: Add defaut config.
+- [config]: Add new improved config style.
+
+### Changed
+
+- [package]: Bump `typescript-eslint` to v.8.56.0.
+- [eslint]: Use minimatch in ignores.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [1.0.8] - 2026-02-16
 
 ### Changed
