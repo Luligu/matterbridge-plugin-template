@@ -75,7 +75,7 @@ The project has the following already configured workflows:
 - You can run, build, and test your plugin directly inside the container.
 - To open a terminal in the devcontainer, use the VS Code terminal after the container starts.
 - All commands (npm, tsc, matterbridge etc.) will run inside the container environment.
-- All the source files are on host.
+- All the source files are on the host.
 
 ## Dev containers networking limitations
 
@@ -85,28 +85,40 @@ Dev containers have networking limitations depending on the host OS and Docker s
 
 - Runs inside a VM
 - Host networking mode is NOT available
-- Matterbridge and plugins can run but:
-  - ❌ Pairing with Matter controllers will NOT work cause of missing mDNS support
-  - ✅ Remote and local network access (cloud services, internet APIs) works normally
-  - ✅ Matterbridge frontend works normally
+- Use the Matterbridge Plugin Dev Container system (https://matterbridge.io/reflector/MatterbridgeDevContainer.html) for development and testing. It provides a similar environment to the native Linux setup with the following features:
+
+  ✅ Is possible to pair with an Home Assistant instance running in docker compose on the same host
+
+  ✅ mDNS works normally inside the containers
+
+  ✅ Remote and local network access (cloud services, internet APIs) work normally
+
+  ✅ Matterbridge and plugins work normally
+
+  ✅ Matterbridge frontend works normally
+
+- Use the Matterbridge mDNS Reflector with the Matterbridge Plugin Dev Container system (https://matterbridge.io/reflector/Reflector.html) if you want to pair with a controller on the local network with the following features:
+
+  ✅ Is possible to pair with a controller running on the local network using mDNS reflector
+
+  ✅ mDNS, remote and local network access (cloud services, internet APIs) work normally
+
+  ✅ Matterbridge and plugins work normally
+
+  ✅ Matterbridge frontend works normally
 
 • Native Linux or WSL 2 with Docker Engine CLI integration:
 
-- Host networking IS available
-- Full local network access is supported with mDNS
-- Matterbridge and plugins work correctly, including pairing
-- Matterbridge frontend works normally
+- ✅ Host networking IS available (with --network=host)
 
-## How to pair the plugin
+- ✅ Full local network access is supported
 
-When you want to test your plugin with a paired controller and you cannot use native Linux or WSL 2 with Docker Engine, you have several other options:
+- ✅ Matterbridge and plugins work correctly, including pairing
 
-- create a tgz (npm run npmPack) and upload it to a running instance of matterbridge.
-- publish the plugin with tag dev and install it (matterbridge-yourplugin@dev in Install plugins) in a running instance of matterbridge.
-- use a local instance of matterbridge running outside the dev container and install (../matterbridge-yourplugin in Install plugins) or add (../matterbridge-yourplugin in Install plugins) your plugin to it (easiest way). Adjust the path if matterbridge dir and your plugin dir are not in the same parent directory.
+- ✅ Matterbridge frontend works normally
 
 ## Documentation
 
-Refer to the Matterbridge documentation for other guidelines.
+Refer to the Matterbridge [documentation](https://matterbridge.io) for other guidelines.
 
 ---

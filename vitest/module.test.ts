@@ -1,9 +1,9 @@
 import path from 'node:path';
 
-import { vi, describe, beforeEach, afterAll } from 'vitest';
+import { MatterbridgeEndpoint, PlatformConfig, PlatformMatterbridge } from 'matterbridge';
 import { AnsiLogger, LogLevel } from 'matterbridge/logger';
-import { MatterbridgeEndpoint, PlatformConfig, PlatformMatterbridge, SystemInformation } from 'matterbridge';
 import { VendorId } from 'matterbridge/matter';
+import { afterAll, beforeEach, describe, vi } from 'vitest';
 
 import { TemplatePlatform } from '../src/module.ts';
 
@@ -22,16 +22,16 @@ const mockMatterbridge: PlatformMatterbridge = {
     ipv6Address: 'fd78:cbf8:4939:746:a96:8277:346f:416e',
     osRelease: 'x.y.z',
     nodeVersion: '22.10.0',
-  } as unknown as SystemInformation,
+  },
   rootDirectory: path.join('jest', 'TemplatePlugin'),
   homeDirectory: path.join('jest', 'TemplatePlugin'),
   matterbridgeDirectory: path.join('jest', 'TemplatePlugin', '.matterbridge'),
   matterbridgePluginDirectory: path.join('jest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('jest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('jest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.3.0',
-  matterbridgeLatestVersion: '3.3.0',
-  matterbridgeDevVersion: '3.3.0',
+  matterbridgeVersion: '3.5.0',
+  matterbridgeLatestVersion: '3.5.0',
+  matterbridgeDevVersion: '3.5.0',
   bridgeMode: 'bridge',
   restartMode: '',
   aggregatorVendorId: VendorId(0xfff1),
@@ -49,6 +49,8 @@ const mockConfig: PlatformConfig = {
   name: 'matterbridge-plugin-template',
   type: 'DynamicPlatform',
   version: '1.0.0',
+  whiteList: [],
+  blackList: [],
   debug: false,
   unregisterOnShutdown: false,
 };
@@ -97,7 +99,16 @@ describe('Matterbridge Plugin Template', () => {
     expect(mockLog.info).toHaveBeenCalledWith('Initializing Platform...');
   });
 
+  it('should start with node devices selected', async () => {
+    mockConfig.whiteList = ['No devices'];
+    await instance.onStart('Jest');
+    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Jest');
+    await instance.onStart();
+    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
+  });
+
   it('should start', async () => {
+    mockConfig.whiteList = [];
     await instance.onStart('Jest');
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Jest');
     await instance.onStart();
