@@ -8,6 +8,18 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2026-03-19
+
+### Changed
+
+- [package]: Update dependencies.
+- [package]: Bump package to `automator` v.3.1.3.
+- [devcontainer]: Update `Dev Container` configuration.
+- [package]: Refactor build.yml to use matterbridge dev branch if the push is from the dev branch.
+- [package]: Add type checking script for Jest test.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [1.0.11] - 2026-03-16
 
 ### Changed
