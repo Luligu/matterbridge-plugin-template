@@ -8,7 +8,7 @@ If you like this project and find it useful, please consider giving it a star on
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.12] - 2026-03-19
+## [1.0.12] - 2026-03-20
 
 ### Changed
 
@@ -17,6 +17,8 @@ All notable changes to this project will be documented in this file.
 - [devcontainer]: Update `Dev Container` configuration.
 - [package]: Refactor `build.yml` to use matterbridge dev branch for push and main for pull requests.
 - [package]: Add `type checking` script for Jest tests.
+- [package]: Update actions versions in workflows.
+- [package]: Bump `eslint` to v.10.1.0.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
