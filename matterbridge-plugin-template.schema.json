@@ -4,21 +4,21 @@
   "type": "object",
   "properties": {
     "name": {
-      "title": "Name",
+      "title": "Plugin Name",
       "description": "Plugin name",
       "type": "string",
       "readOnly": true,
       "ui:widget": "hidden"
     },
     "type": {
-      "title": "Type",
+      "title": "Plugin Type",
       "description": "Plugin type",
       "type": "string",
       "readOnly": true,
       "ui:widget": "hidden"
     },
     "whiteList": {
-      "title": "White list",
+      "title": "White List",
       "description": "Only the devices in the list will be exposed. If the list is empty, all the devices will be exposed.",
       "type": "array",
       "items": {
@@ -28,7 +28,7 @@
       "selectFrom": "name"
     },
     "blackList": {
-      "title": "Black list",
+      "title": "Black List",
       "description": "The devices in the list will not be exposed. If the list is empty, no devices will be excluded.",
       "type": "array",
       "items": {
@@ -38,13 +38,13 @@
       "selectFrom": "name"
     },
     "debug": {
-      "title": "Debug",
+      "title": "Enable Debug",
       "description": "Enable debug mode for the plugin. Only for debugging purposes, not recommended for production use.",
       "type": "boolean",
       "default": false
     },
     "unregisterOnShutdown": {
-      "title": "Unregister",
+      "title": "Unregister On Shutdown",
       "description": "Unregister all devices on shutdown. Only for debugging purposes, not recommended for production use.",
       "type": "boolean",
       "default": false
