@@ -4,7 +4,6 @@
     "composite": true,
     "target": "esnext",
     "lib": ["ESNext"],
-    "types": ["node"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
