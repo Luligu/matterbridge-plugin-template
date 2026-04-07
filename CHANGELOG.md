@@ -10,6 +10,26 @@ All notable changes to this project will be documented in this file.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="120"></a>
 
+> ## Periodical Updates
+>
+> Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
+
+## [1.0.15] - 2026-04-07
+
+### Changed
+
+- [package]: Update dependencies.
+- [package]: Bump package to `automator` v.3.1.5.
+- [package]: Bump `eslint` to v.10.2.0.
+- [devcontainer]: Fix pull of new image.
+- [devcontainer]: Update VS Code settings.
+- [devcontainer]: Leave matterbridge scripts in the cloned repo.
+- [scripts]: Update mb-run script.
+- [scripts]: Update package watch script.
+- [scripts]: Add prune-releases script.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [1.0.14] - 2026-04-02
 
 ### Changed

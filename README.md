@@ -65,6 +65,23 @@ The project has the following already configured workflows:
 4. Update the code and configuration files as needed for your plugin. Change the name (keep always matterbridge- at the beginning of the name), version, description, author, homepage, repository, bugs and funding in the package.json.
 5. Follow the instructions in the matterbridge [README-DEV](https://github.com/Luligu/matterbridge/blob/main/README-DEV.md) and comments in module.ts to implement your plugin logic.
 
+## Periodical Updates
+
+This template evolves over time to keep up with Matterbridge, Node.js, TypeScript, and the surrounding tooling ecosystem. Periodically pulling in the latest template changes helps your plugin benefit from:
+
+- Security and dependency updates (Node.js and tooling).
+- CI improvements (new Node versions, workflow hardening, and cross-platform fixes).
+- Developer experience updates (Dev Container tweaks, lint/format configs, test runner updates).
+
+If your plugin repository was created from this template, it’s a good habit to review new template releases/commits and selectively copy the relevant files into your plugin repo. Typical “template-owned” areas to keep in sync include:
+
+- `.devcontainer/` (development environment and extensions)
+- `.github/workflows/` (build/test/publish/CodeQL/Codecov pipelines)
+- Tooling configs like `eslint.config.js`, `prettier.config.js`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
+- Helper scripts under `scripts/` (release/version automation)
+
+Tip: prefer copying and adapting these files rather than rewriting them from scratch—staying close to the template makes future updates faster and less error-prone.
+
 ## Using the Dev Container
 
 - Docker Desktop or Docker Engine are required to use the Dev Container.
