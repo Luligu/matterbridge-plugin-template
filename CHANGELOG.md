@@ -17,6 +17,10 @@ If you like this project and find it useful, please consider giving it a star on
 - [package]: Update dependencies.
 - [package]: Bump package to `automator` v.3.1.5.
 - [package]: Bump `eslint` to v.10.2.0.
+- [package]: Bump `prettier` to v.3.8.2.
+- [package]: Bump `typescript-eslint` to v.8.58.1.
+- [package]: Bump `node-ansi-logger` to v.3.2.1.
+- [package]: Bump `node-persist-manager` to v.2.0.2.
 - [devcontainer]: Fix pull of new image.
 - [devcontainer]: Update VS Code settings.
 - [devcontainer]: Leave matterbridge scripts in the cloned repo.
