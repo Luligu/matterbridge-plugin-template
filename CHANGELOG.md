@@ -16,6 +16,7 @@ If you like this project and find it useful, please consider giving it a star on
 
 - [package]: Update dependencies.
 - [package]: Bump package to `automator` v.3.1.6.
+- [package]: Bump `typescript-eslint` to v.8.58.2.
 - [agent]: Add `.github\copilot-instructions.md` for copilot.
 - [agent]: Add `.claude\CLAUDE.md` for claude.
 - [agent]: Add agent custom instructions (`testing`) for copilot and claude.
