@@ -10,13 +10,19 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
-## [1.0.16] - 2026-04-15
+## [1.0.16] - 2026-04-19
 
 ### Changed
 
+- [package]: Preliminary compatibility update to `matterbridge 3.8.0`, matter 1.5.1 and matter.js 0.17.0.
 - [package]: Update dependencies.
 - [package]: Bump package to `automator` v.3.1.6.
+- [package]: Bump `typescript` to v.6.0.3.
+- [package]: Bump `eslint` to v.10.2.1.
 - [package]: Bump `typescript-eslint` to v.8.58.2.
+- [package]: Add `.vscode\tasks.json`.
+- [package]: Add `.vscode\settings.json`.
+- [devcontainer]: Add `Claude Code for VS Code extension` to Dev Container.
 - [agent]: Add `.github\copilot-instructions.md` for copilot.
 - [agent]: Add `.claude\CLAUDE.md` for claude.
 - [agent]: Add agent custom instructions (`testing`) for copilot and claude.
