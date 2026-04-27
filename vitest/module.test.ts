@@ -128,7 +128,7 @@ describe('Matterbridge Plugin Template', () => {
   it('should configure', async () => {
     await instance.onConfigure();
     expect(mockLog.info).toHaveBeenCalledWith('onConfigure called');
-    expect(mockLog.info).toHaveBeenCalledWith(expect.stringContaining('Configuring device:'));
+    expect(mockLog.info).toHaveBeenCalledWith(expect.stringContaining('Configuring device'));
   });
 
   it('should change logger level', async () => {

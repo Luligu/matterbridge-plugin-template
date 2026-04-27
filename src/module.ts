@@ -46,7 +46,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     super(matterbridge, log, config);
 
     // Verify that Matterbridge is the correct version
-    if (this.verifyMatterbridgeVersion === undefined || typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.4.0')) {
+    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.4.0')) {
       throw new Error(
         `This plugin requires Matterbridge version >= "3.4.0". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend."`,
       );
@@ -77,12 +77,13 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
 
     // Configure all your devices. The persisted attributes need to be updated.
     for (const device of this.getDevices()) {
-      this.log.info(`Configuring device: ${device.uniqueId}`);
+      this.log.info(`Configuring device ${device.deviceName} with id ${device.originalId}`);
       // You can update the device configuration here, for example:
       // device.updateConfiguration({ key: 'value' });
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   override async onChangeLoggerLevel(logLevel: LogLevel) {
     this.log.info(`onChangeLoggerLevel called with: ${logLevel}`);
     // Change here the logger level of the api you use or of your devices
@@ -93,7 +94,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     await super.onShutdown(reason);
 
     this.log.info(`onShutdown called with reason: ${reason ?? 'none'}`);
-    if (this.config.unregisterOnShutdown === true) await this.unregisterAllDevices();
+    if (this.config.unregisterOnShutdown) await this.unregisterAllDevices();
   }
 
   private async discoverDevices() {
