@@ -83,7 +83,6 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   override async onChangeLoggerLevel(logLevel: LogLevel) {
     this.log.info(`onChangeLoggerLevel called with: ${logLevel}`);
     // Change here the logger level of the api you use or of your devices

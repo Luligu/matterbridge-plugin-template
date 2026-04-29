@@ -1,6 +1,6 @@
 {
   "name": "matterbridge-plugin-template",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
   "homepage": "https://www.npmjs.com/package/matterbridge-plugin-template",
@@ -146,7 +146,7 @@
     "shx": "0.4.0",
     "ts-jest": "29.4.9",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.59.0",
+    "typescript-eslint": "8.59.1",
     "vitest": "4.1.5"
   }
 }
