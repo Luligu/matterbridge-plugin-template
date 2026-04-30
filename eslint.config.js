@@ -1,7 +1,7 @@
 // @ts-check
 // eslint.config.js 2.0.0
 
-// This ESLint configuration is designed for a TypeScript project.
+// This ESLint configuration is designed for a TypeScript project using ESM modules.
 
 import { existsSync } from 'node:fs';
 import path from 'node:path';
