@@ -75,8 +75,10 @@ This template evolves over time to keep up with Matterbridge, Node.js, TypeScrip
 
 If your plugin repository was created from this template, it’s a good habit to review new template releases/commits and selectively copy the relevant files into your plugin repo. Typical “template-owned” areas to keep in sync include:
 
+- `.claude/` (Claude AI settings)
 - `.devcontainer/` (development environment and extensions)
-- `.github/workflows/` (build/test/publish/CodeQL/Codecov pipelines)
+- `.github/` (Copilot AI setting and build/publish/CodeQL/Codecov pipelines)
+- `.vscode/` (repo settings and tasks coordinated with tooling configs)
 - Tooling configs like `eslint.config.js`, `prettier.config.js`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
 - Helper scripts under `scripts/` (release/version automation)
 
