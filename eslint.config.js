@@ -1,3 +1,4 @@
+// @ts-check
 // eslint.config.js 2.0.0
 
 // This ESLint configuration is designed for a TypeScript project.
@@ -132,7 +133,13 @@ export default defineConfig([
       '@typescript-eslint/no-unused-vars': 'off', // Disable TypeScript rule for unused variables in test files
       '@typescript-eslint/no-explicit-any': 'off', // Allow 'any' type in test files
       '@typescript-eslint/no-empty-function': 'off', // Allow empty functions in test files
-      '@typescript-eslint/require-await': 'off', // Disable TypeScript rule for async functions that don't use await in test files
+      '@typescript-eslint/no-floating-promises': 'off', // Require unhandled promises to be explicitly voided or awaited
+      '@typescript-eslint/no-misused-promises': 'off', // Disallow promises in non-async callbacks or boolean conditions
+      '@typescript-eslint/await-thenable': 'off', // Disallow awaiting non-Promise values
+      '@typescript-eslint/return-await': 'off', // Require return await inside try-catch so rejections are caught locally
+      '@typescript-eslint/only-throw-error': 'off', // Require only Error objects to be thrown or rejected
+      '@typescript-eslint/promise-function-async': 'off', // Require Promise-returning functions to be async
+      '@typescript-eslint/require-await': 'off', // Disallow async functions without any await expression
       'jsdoc/require-jsdoc': 'off', // Disable JSDoc rule in test files
     },
   },
@@ -153,7 +160,13 @@ export default defineConfig([
       '@typescript-eslint/no-unused-vars': 'off', // Disable TypeScript rule for unused variables in test files
       '@typescript-eslint/no-explicit-any': 'off', // Allow 'any' type in test files
       '@typescript-eslint/no-empty-function': 'off', // Allow empty functions in test files
-      '@typescript-eslint/require-await': 'off', // Disable TypeScript rule for async functions that don't use await in test files
+      '@typescript-eslint/no-floating-promises': 'off', // Require unhandled promises to be explicitly voided or awaited
+      '@typescript-eslint/no-misused-promises': 'off', // Disallow promises in non-async callbacks or boolean conditions
+      '@typescript-eslint/await-thenable': 'off', // Disallow awaiting non-Promise values
+      '@typescript-eslint/return-await': 'off', // Require return await inside try-catch so rejections are caught locally
+      '@typescript-eslint/only-throw-error': 'off', // Require only Error objects to be thrown or rejected
+      '@typescript-eslint/promise-function-async': 'off', // Require Promise-returning functions to be async
+      '@typescript-eslint/require-await': 'off', // Disallow async functions without any await expression
       'jsdoc/require-jsdoc': 'off', // Disable JSDoc rule in test files
     },
   },
@@ -164,6 +177,9 @@ export default defineConfig([
     plugins: { json },
     language: 'json/json',
     extends: ['json/recommended'],
+    rules: {
+      'json/no-unsafe-values': 'off',
+    },
   },
   {
     name: 'JSONC files',
@@ -171,11 +187,14 @@ export default defineConfig([
     plugins: { json },
     language: 'json/jsonc',
     extends: ['json/recommended'],
+    rules: {
+      'json/no-unsafe-values': 'off',
+    },
   },
   {
     name: 'Markdown Files',
     files: ['**/*.md'],
     plugins: { markdown },
-    extends: ['markdown/recommended'], // <!-- eslint-disable markdown/no-missing-label-refs -->
+    extends: ['markdown/recommended'],
   },
 ]);

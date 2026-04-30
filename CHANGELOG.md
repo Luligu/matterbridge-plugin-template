@@ -18,7 +18,7 @@ If you like this project and find it useful, please consider giving it a star on
 
 - [package]: Update dependencies.
 - [package]: Bump `typescript-eslint` to v.8.59.1.
-- [eslint]: Add `eslint` v.2.0.0 config.
+- [eslint]: Add `eslint` v.2.0.0 config (co-authored by Claude Sonnet 4.6).
 
 ## [1.0.17] - 2026-04-27
 
