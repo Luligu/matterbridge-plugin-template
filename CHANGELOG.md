@@ -1,3 +1,5 @@
+<!-- eslint-disable markdown/no-missing-label-refs -->
+
 # <img src="https://matterbridge.io/assets/matterbridge.svg" alt="Matterbridge Logo" width="64px" height="64px">&nbsp;&nbsp;&nbsp;Matterbridge plugin template changelog
 
 All notable changes to this project will be documented in this file.
