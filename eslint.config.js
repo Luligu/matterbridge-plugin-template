@@ -20,8 +20,22 @@ import importsort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 
 const sourceFiles = ['**/*.{js,mjs,cjs,ts,mts,cts}'];
-const typescriptFiles = ['**/src/**/*.{ts,mts,cts}', '**/vitest/**/*.spec.{ts,mts,cts}', '**/vitest/**/*.test.{ts,mts,cts}'];
-const jestTestFiles = ['**/*.spec.{ts,mts,cts}', '**/*.test.{ts,mts,cts}', '**/__test__/**/*.{ts,mts,cts}'];
+const typescriptFiles = [
+  '**/src/**/*.{ts,mts,cts}',
+  '**/test/**/*.spec.{ts,mts,cts}',
+  '**/test/**/*.test.{ts,mts,cts}',
+  '**/test/**/__test__/**/*.{ts,mts,cts}',
+  '**/vitest/**/*.spec.{ts,mts,cts}',
+  '**/vitest/**/*.test.{ts,mts,cts}',
+];
+const jestTestFiles = [
+  '**/src/**/*.spec.{ts,mts,cts}',
+  '**/src/**/*.test.{ts,mts,cts}',
+  '**/src/**/__test__/**/*.{ts,mts,cts}',
+  '**/test/**/*.spec.{ts,mts,cts}',
+  '**/test/**/*.test.{ts,mts,cts}',
+  '**/test/**/__test__/**/*.{ts,mts,cts}',
+];
 const vitestTestFiles = ['**/vitest/**/*.spec.{ts,mts,cts}', '**/vitest/**/*.test.{ts,mts,cts}'];
 const configDirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -118,7 +132,6 @@ export default defineConfig([
   {
     name: 'Jest Test Files',
     files: jestTestFiles,
-    ignores: vitestTestFiles,
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {

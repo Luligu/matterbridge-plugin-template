@@ -79,7 +79,7 @@ describe('Matterbridge Plugin Template', () => {
   });
 
   it('should create an instance of the platform', async () => {
-    // @ts-ignore Ignore the typescript error for testing purposes
+    // @ts-expect-error Dynamic import for testing purposes
     instance = (await import('../src/module.ts')).default(mockMatterbridge, mockLog, mockConfig) as unknown as TemplatePlatform;
     // @ts-expect-error Accessing private method for testing purposes
     instance.setMatterNode(
