@@ -186,7 +186,7 @@ export default defineConfig([
   {
     name: 'JSON Files',
     files: ['**/*.json'],
-    ignores: ['**/devcontainer.json', '**/package-lock.json'], // Ignore devcontainer.json and package-lock.json files
+    ignores: ['**/devcontainer.json', '**/.vscode/*.json', '**/package-lock.json'],
     plugins: { json, prettier },
     language: 'json/json',
     extends: ['json/recommended'],
@@ -196,8 +196,8 @@ export default defineConfig([
     },
   },
   {
-    name: 'JSONC files',
-    files: ['**/devcontainer.json', '**/*.jsonc'],
+    name: 'JSON with Comments Files',
+    files: ['**/*.jsonc', '**/devcontainer.json', '**/.vscode/*.json'],
     plugins: { json, prettier },
     language: 'json/jsonc',
     extends: ['json/recommended'],
