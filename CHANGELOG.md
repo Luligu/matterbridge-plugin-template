@@ -12,6 +12,19 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
+## [1.0.19] - 2026-05-01
+
+### Changed
+
+- [package]: Update dependencies.
+- [package]: Bump package to `automator` v.3.1.7.
+- [package]: Add package script `typecheck`.
+- [package]: Bump `typescript-eslint` to v.8.59.2.
+- [eslint]: Add `eslint` v.2.0.2 config.
+- [eslint]: Add `jest` v.2.0.1 config.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [1.0.18] - 2026-05-01
 
 ### Changed
@@ -21,6 +34,8 @@ If you like this project and find it useful, please consider giving it a star on
 - [eslint]: Add `eslint` v.2.0.0 config.
 - [eslint]: Add `prettier` v.2.0.0 config.
 - [eslint]: Add `jest` v.2.0.0 config.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
 ## [1.0.17] - 2026-04-27
 
