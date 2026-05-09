@@ -1,7 +1,7 @@
 ---
-name: 'Testing Standards v.1.0.1'
-description: 'Testing standards for unit tests in the project.'
-applyTo: '**/*.test.ts'
+name: 'Testing Standards v.1.0.2'
+description: 'Testing standards for unit tests in the project'
+applyTo: '**/*.test.ts, **/*.spec.ts, **/test/**/*.ts, **/vitest/**/*.ts'
 ---
 
 # Testing Standards for Unit Tests
@@ -10,7 +10,7 @@ applyTo: '**/*.test.ts'
 
 - Use Jest (with ts-jest) or Vitest as the testing framework for all unit tests.
 - Jest is available in the repository when the file `jest.config.js` exists.
-- Vitest is available in the repository when the file `vitest.config.ts` exists.
+- Vitest is available in the repository when the file `vite.config.ts` exists.
 - Avoid using both Jest and Vitest in the same project to prevent conflicts. When both are available, prefer Vitest for new tests and consider migrating existing Jest tests to Vitest over time.
 - Jest tests live adjacent to the code being tested with a `.test.ts` suffix or in `test` folders. Follow the existing convention in the repository for test file placement.
 - Vitest tests live adjacent to the code being tested with a `.test.ts` suffix or in `vitest` folders. Follow the existing convention in the repository for test file placement.
