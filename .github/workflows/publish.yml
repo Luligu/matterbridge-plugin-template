@@ -77,18 +77,18 @@ jobs:
       - name: Publish the plugin to npm with trusted publishing / OIDC
         run: npm publish
 
-      - name: Trigger Matterbridge Docker Build Main
-        if: env.PAT_TOKEN != ''
-        uses: actions/github-script@v8
-        with:
-          github-token: ${{ env.PAT_TOKEN }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: 'Luligu',
-              repo: 'matterbridge',
-              workflow_id: 'docker-buildx-latest.yml',
-              ref: 'main'
-            })
+      # - name: Trigger Matterbridge Docker Build Main
+      #   if: env.PAT_TOKEN != ''
+      #   uses: actions/github-script@v8
+      #   with:
+      #     github-token: ${{ env.PAT_TOKEN }}
+      #     script: |
+      #       await github.rest.actions.createWorkflowDispatch({
+      #         owner: 'Luligu',
+      #         repo: 'matterbridge',
+      #         workflow_id: 'docker-buildx-latest.yml',
+      #         ref: 'main'
+      #       })
 
   publish-dev:
     name: Publish daily dev to npm and trigger matterbridge docker build dev
