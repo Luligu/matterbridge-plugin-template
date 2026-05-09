@@ -21,6 +21,7 @@ If you like this project and find it useful, please consider giving it a star on
 - [package]: Add package script `typecheck`.
 - [jest]: Bump `jest` to v.30.4.2.
 - [vitest]: Add `vitest` v.2.0.3 config.
+- [agent]: Update agent instructions.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
