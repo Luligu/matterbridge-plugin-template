@@ -56,7 +56,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     // You can initialize your platform here, like setting up initial state or loading configurations.
   }
 
-  override async onStart(reason?: string) {
+  override async onStart(reason?: string): Promise<void> {
     this.log.info(`onStart called with reason: ${reason ?? 'none'}`);
 
     // Wait for the platform to fully load the select if you use them.
@@ -69,7 +69,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     await this.discoverDevices();
   }
 
-  override async onConfigure() {
+  override async onConfigure(): Promise<void> {
     // Always call super.onConfigure()
     await super.onConfigure();
 
@@ -84,12 +84,12 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  override async onChangeLoggerLevel(logLevel: LogLevel) {
+  override async onChangeLoggerLevel(logLevel: LogLevel): Promise<void> {
     this.log.info(`onChangeLoggerLevel called with: ${logLevel}`);
     // Change here the logger level of the api you use or of your devices
   }
 
-  override async onShutdown(reason?: string) {
+  override async onShutdown(reason?: string): Promise<void> {
     // Always call super.onShutdown(reason)
     await super.onShutdown(reason);
 
@@ -97,7 +97,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     if (this.config.unregisterOnShutdown) await this.unregisterAllDevices();
   }
 
-  private async discoverDevices() {
+  private async discoverDevices(): Promise<void> {
     this.log.info('Discovering devices...');
     // Implement device discovery logic here.
     // For example, you might fetch devices from an API.
