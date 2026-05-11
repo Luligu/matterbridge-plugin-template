@@ -8,6 +8,5 @@
     "incremental": false,
     "isolatedModules": true
   },
-  "include": ["**/vitest/**/*.spec.ts", "**/vitest/**/*.test.ts"],
-  "exclude": []
+  "include": ["**/vitest/**/*.spec.ts", "**/vitest/**/*.test.ts"]
 }
