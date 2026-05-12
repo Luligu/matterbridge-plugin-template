@@ -12,7 +12,7 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
-## [1.0.21] - 2026-05-11
+## [1.0.21] - 2026-05-12
 
 ### Changed
 
@@ -20,8 +20,8 @@ If you like this project and find it useful, please consider giving it a star on
 - [package]: Bump package to `automator` v.3.1.9.
 - [package]: Bump `typescript-eslint` to v.8.59.3.
 - [package]: Bump `vitest` to v.4.1.6.
-- [package]: Update `scripts`.
-- [eslint]: Add `eslint` v.2.0.3 config.
+- [package]: Refactor `scripts`.
+- [eslint]: Add `eslint` v.2.0.4 config.
 
 ## [1.0.20] - 2026-05-09
 
