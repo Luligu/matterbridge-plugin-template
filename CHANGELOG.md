@@ -19,7 +19,12 @@ If you like this project and find it useful, please consider giving it a star on
 - [package]: Update dependencies.
 - [package]: Bump package to `automator` v.3.1.10.
 - [package]: Bump `eslint` to v.10.4.0.
-- [package]: Bump `@types/node` to v.25.8.0.
+- [package]: Bump `@types/node` to v.25.9.1.
+- [package]: Bump `ts-jest` to v.29.4.10.
+- [package]: Bump `typescript-eslint` to v.8.59.4.
+- [package]: Bump `vitest` to v.4.1.7.
+- [package]: Bump `@vitest/coverage-v8` to v.4.1.7.
+- [package]: Update `.devcontainer/devcontainer.json`.
 - [package]: Update `.vscode/settings.json`.
 - [package]: Update `.vscode/extensions.json`.
 
