@@ -29,9 +29,9 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgePluginDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('.cache', 'jest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.5.0',
-  matterbridgeLatestVersion: '3.5.0',
-  matterbridgeDevVersion: '3.5.0',
+  matterbridgeVersion: '3.8.0',
+  matterbridgeLatestVersion: '3.8.0',
+  matterbridgeDevVersion: '3.8.0',
   bridgeMode: 'bridge',
   restartMode: '',
   aggregatorVendorId: VendorId(0xfff1),
@@ -69,13 +69,9 @@ describe('Matterbridge Plugin Template', () => {
   });
 
   it('should throw an error if matterbridge is not the required version', async () => {
-    // @ts-expect-error Ignore readonly for testing purposes
-    mockMatterbridge.matterbridgeVersion = '2.0.0'; // Simulate an older version
-    expect(() => new TemplatePlatform(mockMatterbridge, mockLog, mockConfig)).toThrow(
-      'This plugin requires Matterbridge version >= "3.4.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
+    expect(() => new TemplatePlatform({ ...mockMatterbridge, matterbridgeVersion: '2.0.0' }, mockLog, mockConfig)).toThrow(
+      'This plugin requires Matterbridge version >= "3.8.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
     );
-    // @ts-expect-error Ignore readonly for testing purposes
-    mockMatterbridge.matterbridgeVersion = '3.4.0';
   });
 
   it('should create an instance of the platform', async () => {
@@ -96,7 +92,7 @@ describe('Matterbridge Plugin Template', () => {
     expect(instance.matterbridge).toBe(mockMatterbridge);
     expect(instance.log).toBe(mockLog);
     expect(instance.config).toBe(mockConfig);
-    expect(instance.matterbridge.matterbridgeVersion).toBe('3.4.0');
+    expect(instance.matterbridge.matterbridgeVersion).toBe('3.8.0');
     expect(mockLog.info).toHaveBeenCalledWith('Initializing Platform...');
   });
 

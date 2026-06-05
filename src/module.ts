@@ -46,9 +46,9 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     super(matterbridge, log, config);
 
     // Verify that Matterbridge is the correct version
-    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.4.0')) {
+    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.8.0')) {
       throw new Error(
-        `This plugin requires Matterbridge version >= "3.4.0". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend."`,
+        `This plugin requires Matterbridge version >= "3.8.0". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend."`,
       );
     }
 
@@ -109,7 +109,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     const outlet = new MatterbridgeEndpoint(onOffOutlet, { id: 'outlet1' })
       .createDefaultBridgedDeviceBasicInformationClusterServer('Outlet', 'SN123456', this.matterbridge.aggregatorVendorId, 'Matterbridge', 'Matterbridge Outlet', 10000, '1.0.0')
       .createDefaultPowerSourceWiredClusterServer()
-      .addRequiredClusterServers()
+      .addRequiredClusters() // This will add both server and client clusters that are required by the device.
       .addCommandHandler('on', (data) => {
         this.log.info(`Command on called on cluster ${data.cluster}`);
       })
