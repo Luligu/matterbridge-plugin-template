@@ -79,7 +79,7 @@ If your plugin repository was created from this template, it’s a good habit to
 - `.devcontainer/` (development environment and extensions)
 - `.github/` (Copilot AI setting and build/publish/CodeQL/Codecov pipelines)
 - `.vscode/` (repo settings and tasks coordinated with tooling configs)
-- Tooling configs like `eslint.config.js`, `prettier.config.js`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
+- Tooling configs like `eslint.config.js`, `.prettierignore`, `prettier.config.js`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
 - Helper scripts under `scripts/` (release/version automation)
 
 Tip: prefer copying and adapting these files rather than rewriting them from scratch—staying close to the template makes future updates faster and less error-prone.

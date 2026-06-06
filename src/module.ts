@@ -4,7 +4,7 @@
  * @file module.ts
  * @author Luca Liguori
  * @created 2025-06-15
- * @version 1.3.0
+ * @version 2.0.0
  * @license Apache-2.0
  *
  * Copyright 2025, 2026, 2027 Luca Liguori.
@@ -22,8 +22,15 @@
  * limitations under the License.
  */
 
-import { MatterbridgeDynamicPlatform, MatterbridgeEndpoint, onOffOutlet, PlatformConfig, PlatformMatterbridge } from 'matterbridge';
+import { BasePlatformConfig, MatterbridgeDynamicPlatform, MatterbridgeEndpoint, onOffOutlet, PlatformMatterbridge } from 'matterbridge';
 import { AnsiLogger, LogLevel } from 'matterbridge/logger';
+import { OnOff } from 'matterbridge/matter/clusters';
+
+// This allows to have type checking and autocompletion for the instance config.
+export type TemplatePlatformConfig = BasePlatformConfig & {
+  whiteList: string[];
+  blackList: string[];
+};
 
 /**
  * This is the standard interface for Matterbridge plugins.
@@ -31,17 +38,17 @@ import { AnsiLogger, LogLevel } from 'matterbridge/logger';
  *
  * @param {PlatformMatterbridge} matterbridge - An instance of MatterBridge.
  * @param {AnsiLogger} log - An instance of AnsiLogger. This is used for logging messages in a format that can be displayed with ANSI color codes and in the frontend.
- * @param {PlatformConfig} config - The platform configuration.
+ * @param {TemplatePlatformConfig} config - The platform configuration.
  * @returns {TemplatePlatform} - An instance of the MatterbridgeAccessory or MatterbridgeDynamicPlatform class. This is the main interface for interacting with the Matterbridge system.
  */
-export default function initializePlugin(matterbridge: PlatformMatterbridge, log: AnsiLogger, config: PlatformConfig): TemplatePlatform {
+export default function initializePlugin(matterbridge: PlatformMatterbridge, log: AnsiLogger, config: TemplatePlatformConfig): TemplatePlatform {
   return new TemplatePlatform(matterbridge, log, config);
 }
 
 // Here we define the TemplatePlatform class, which extends the MatterbridgeDynamicPlatform.
 // If you want to create an Accessory platform plugin, you should extend the MatterbridgeAccessoryPlatform class instead.
 export class TemplatePlatform extends MatterbridgeDynamicPlatform {
-  constructor(matterbridge: PlatformMatterbridge, log: AnsiLogger, config: PlatformConfig) {
+  constructor(matterbridge: PlatformMatterbridge, log: AnsiLogger, config: TemplatePlatformConfig) {
     // Always call super(matterbridge, log, config)
     super(matterbridge, log, config);
 
@@ -78,8 +85,9 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     // Configure all your devices. The persisted attributes need to be updated.
     for (const device of this.getDevices()) {
       this.log.info(`Configuring device ${device.deviceName} with id ${device.originalId}`);
-      // You can update the device configuration here, for example:
-      // device.updateConfiguration({ key: 'value' });
+      // You can update the device state here, for example:
+      // await device.setCluster(OnOff, { onOff: false });
+      await device.setAttribute(OnOff, 'onOff', false);
     }
   }
 

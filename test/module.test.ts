@@ -1,11 +1,56 @@
+// Warning: the tests in this unit are supposed to run sequentially.
+
 import path from 'node:path';
 
 import { jest } from '@jest/globals';
-import { MatterbridgeEndpoint, PlatformConfig, PlatformMatterbridge } from 'matterbridge';
+import { MatterbridgeEndpoint, PlatformMatterbridge } from 'matterbridge';
 import { AnsiLogger, LogLevel } from 'matterbridge/logger';
 import { VendorId } from 'matterbridge/matter';
 
-import { TemplatePlatform } from '../src/module.js';
+import { TemplatePlatform, TemplatePlatformConfig } from '../src/module.js';
+
+const mockMatterbridge: PlatformMatterbridge = {
+  systemInformation: {
+    interfaceName: 'eth0',
+    macAddress: 'aa:bb:cc:dd:ee:ff',
+    ipv4Address: '192.168.1.1',
+    ipv6Address: 'fd78:cbf8:4939:746:a96:8277:346f:416e',
+    osRelease: 'x.y.z',
+    nodeVersion: '22.10.0',
+    hostname: 'matterbridge',
+    user: 'jest',
+    osType: 'Linux',
+    osPlatform: 'linux',
+    osArch: 'x64',
+    totalMemory: '0 B',
+    freeMemory: '0 B',
+    systemUptime: '0s',
+    processUptime: '0s',
+    cpuUsage: '0%',
+    processCpuUsage: '0%',
+    rss: '0 B',
+    heapTotal: '0 B',
+    heapUsed: '0 B',
+  },
+  uuid: '00000000-0000-0000-0000-000000000000',
+  rootDirectory: path.join('.cache', 'jest', 'TemplatePlugin'),
+  homeDirectory: path.join('.cache', 'jest', 'TemplatePlugin'),
+  matterbridgeDirectory: path.join('.cache', 'jest', 'TemplatePlugin', '.matterbridge'),
+  matterbridgePluginDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'Matterbridge'),
+  matterbridgeCertDirectory: path.join('.cache', 'jest', 'TemplatePlugin', '.mattercert'),
+  globalModulesDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'node_modules'),
+  matterbridgeVersion: '3.8.0',
+  matterbridgeLatestVersion: '3.8.0',
+  matterbridgeDevVersion: '3.8.0',
+  frontendVersion: '3.8.1',
+  bridgeMode: 'bridge',
+  restartMode: '',
+  virtualMode: 'mounted_switch',
+  aggregatorVendorId: VendorId(0xfff1),
+  aggregatorVendorName: 'Matterbridge',
+  aggregatorProductId: 0x8000,
+  aggregatorProductName: 'Matterbridge Jest Aggregator',
+};
 
 const mockLog = {
   fatal: jest.fn((message: string, ...parameters: any[]) => {}),
@@ -16,36 +61,7 @@ const mockLog = {
   debug: jest.fn((message: string, ...parameters: any[]) => {}),
 } as unknown as AnsiLogger;
 
-const mockMatterbridge: PlatformMatterbridge = {
-  systemInformation: {
-    ipv4Address: '192.168.1.1',
-    ipv6Address: 'fd78:cbf8:4939:746:a96:8277:346f:416e',
-    osRelease: 'x.y.z',
-    nodeVersion: '22.10.0',
-  },
-  rootDirectory: path.join('.cache', 'jest', 'TemplatePlugin'),
-  homeDirectory: path.join('.cache', 'jest', 'TemplatePlugin'),
-  matterbridgeDirectory: path.join('.cache', 'jest', 'TemplatePlugin', '.matterbridge'),
-  matterbridgePluginDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'Matterbridge'),
-  matterbridgeCertDirectory: path.join('.cache', 'jest', 'TemplatePlugin', '.mattercert'),
-  globalModulesDirectory: path.join('.cache', 'jest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.8.0',
-  matterbridgeLatestVersion: '3.8.0',
-  matterbridgeDevVersion: '3.8.0',
-  bridgeMode: 'bridge',
-  restartMode: '',
-  aggregatorVendorId: VendorId(0xfff1),
-  aggregatorVendorName: 'Matterbridge',
-  aggregatorProductId: 0x8000,
-  aggregatorProductName: 'Matterbridge aggregator',
-  // Mocked methods
-  registerVirtualDevice: jest.fn(async (name: string, type: 'light' | 'outlet' | 'switch' | 'mounted_switch', callback: () => Promise<void>) => {}),
-  addBridgedEndpoint: jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {}),
-  removeBridgedEndpoint: jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {}),
-  removeAllBridgedEndpoints: jest.fn(async (pluginName: string) => {}),
-} as unknown as PlatformMatterbridge;
-
-const mockConfig: PlatformConfig = {
+const mockConfig: TemplatePlatformConfig = {
   name: 'matterbridge-plugin-template',
   type: 'DynamicPlatform',
   version: '1.0.0',
@@ -55,6 +71,13 @@ const mockConfig: PlatformConfig = {
   unregisterOnShutdown: false,
 };
 
+// Mocked methods
+const addBridgedEndpoint = jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {});
+const removeBridgedEndpoint = jest.fn(async (pluginName: string, device: MatterbridgeEndpoint) => {});
+const removeAllBridgedEndpoints = jest.fn(async (pluginName: string) => {});
+const registerVirtualDevice = jest.fn(async (name: string, type: 'light' | 'outlet' | 'switch' | 'mounted_switch', callback: () => Promise<void>) => {});
+
+// Mock the logger
 const loggerLogSpy = jest.spyOn(AnsiLogger.prototype, 'log').mockImplementation((level: string, message: string, ...parameters: any[]) => {});
 
 describe('Matterbridge Plugin Template', () => {
@@ -75,33 +98,23 @@ describe('Matterbridge Plugin Template', () => {
   });
 
   it('should create an instance of the platform', async () => {
-    // @ts-expect-error Dynamic import for testing purposes
-    instance = (await import('../src/module.ts')).default(mockMatterbridge, mockLog, mockConfig) as unknown as TemplatePlatform;
+    instance = (await import('../src/module.js')).default(mockMatterbridge, mockLog, mockConfig) as TemplatePlatform;
+    expect(instance).toBeInstanceOf(TemplatePlatform);
     // @ts-expect-error Accessing private method for testing purposes
-    instance.setMatterNode(
-      // @ts-expect-error Accessing private method for testing purposes
-      mockMatterbridge.addBridgedEndpoint,
-      // @ts-expect-error Accessing private method for testing purposes
-      mockMatterbridge.removeBridgedEndpoint,
-      // @ts-expect-error Accessing private method for testing purposes
-      mockMatterbridge.removeAllBridgedEndpoints,
-      // @ts-expect-error Accessing private method for testing purposes
-      mockMatterbridge.registerVirtualDevice,
-    );
-    // expect(instance).toBeInstanceOf(TemplatePlatform);
+    instance.setMatterNode(addBridgedEndpoint, removeBridgedEndpoint, removeAllBridgedEndpoints, registerVirtualDevice);
     expect(instance.matterbridge).toBe(mockMatterbridge);
     expect(instance.log).toBe(mockLog);
     expect(instance.config).toBe(mockConfig);
-    expect(instance.matterbridge.matterbridgeVersion).toBe('3.8.0');
     expect(mockLog.info).toHaveBeenCalledWith('Initializing Platform...');
   });
 
-  it('should start with node devices selected', async () => {
+  it('should start with no devices selected', async () => {
     mockConfig.whiteList = ['No devices'];
     await instance.onStart('Jest');
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Jest');
     await instance.onStart();
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
+    expect(addBridgedEndpoint).not.toHaveBeenCalled();
   });
 
   it('should start', async () => {
@@ -110,6 +123,7 @@ describe('Matterbridge Plugin Template', () => {
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Jest');
     await instance.onStart();
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
+    expect(addBridgedEndpoint).toHaveBeenCalledTimes(1);
   });
 
   it('should call the command handlers', async () => {
@@ -137,13 +151,13 @@ describe('Matterbridge Plugin Template', () => {
   it('should shutdown', async () => {
     await instance.onShutdown('Jest');
     expect(mockLog.info).toHaveBeenCalledWith('onShutdown called with reason: Jest');
+    expect(removeAllBridgedEndpoints).not.toHaveBeenCalled();
 
     // Mock the unregisterOnShutdown behavior
     mockConfig.unregisterOnShutdown = true;
     await instance.onShutdown();
     expect(mockLog.info).toHaveBeenCalledWith('onShutdown called with reason: none');
-    // @ts-expect-error Accessing private method for testing purposes
-    expect(mockMatterbridge.removeAllBridgedEndpoints).toHaveBeenCalled();
+    expect(removeAllBridgedEndpoints).toHaveBeenCalled();
     mockConfig.unregisterOnShutdown = false;
   });
 });

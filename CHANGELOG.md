@@ -12,6 +12,15 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
+## [1.1.0] - 2026-06-06
+
+### Added
+
+- [platform]: Add type checking to the platform config.
+- [test]: Add typed mocks in tests.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [1.0.23] - 2026-06-05
 
 ### Breaking changes

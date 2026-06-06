@@ -1,6 +1,6 @@
 {
   "name": "matterbridge-plugin-template",
-  "version": "1.0.23",
+  "version": "1.1.0",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
   "license": "Apache-2.0",
@@ -82,7 +82,7 @@
     "test:vitest": "vitest run",
     "test:vitest:watch": "vitest --reporter verbose",
     "test:vitest:verbose": "vitest run --reporter verbose",
-    "test:vitest:coverage": "vitest run --reporter verbose --coverage",
+    "test:vitest:coverage": "vitest run --reporter verbose --coverage --coverage.thresholds.statements=100 --coverage.thresholds.branches=100 --coverage.thresholds.lines=100 --coverage.thresholds.functions=100",
     "lint": "eslint --cache --cache-location .cache/.eslintcache --max-warnings=0 .",
     "lint:fix": "eslint --cache --cache-location .cache/.eslintcache --fix --max-warnings=0 .",
     "lint:debug": "eslint --cache --cache-location .cache/.eslintcache --max-warnings=0 --debug",
