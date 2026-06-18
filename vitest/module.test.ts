@@ -1,12 +1,20 @@
-// Warning: the tests in this unit are supposed to run sequentially.
+/**
+ * WARNING!!!
+ * The tests in this unit are supposed to run sequentially because they depend on the Matterbridge/Matter state.
+ * Is not possible for timing reasons to create and destroy a Matter node each test to keep isolation.
+ */
+
+// oxlint-disable vitest/no-conditional-expect
 
 import path from 'node:path';
 
-import { MatterbridgeEndpoint, PlatformMatterbridge } from 'matterbridge';
+import type { MatterbridgeEndpoint, PlatformMatterbridge } from 'matterbridge';
 import { AnsiLogger, LogLevel } from 'matterbridge/logger';
+import type { ActionContext } from 'matterbridge/matter';
 import { VendorId } from 'matterbridge/matter';
+import { OnOff, Thermostat } from 'matterbridge/matter/clusters';
 
-import { TemplatePlatform, TemplatePlatformConfig } from '../src/module.js';
+import { TemplatePlatform, type TemplatePlatformConfig } from '../src/module.js';
 
 const mockMatterbridge: PlatformMatterbridge = {
   systemInformation: {
@@ -38,10 +46,10 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgePluginDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.8.0',
-  matterbridgeLatestVersion: '3.8.0',
-  matterbridgeDevVersion: '3.8.0',
-  frontendVersion: '3.8.1',
+  matterbridgeVersion: '3.9.0',
+  matterbridgeLatestVersion: '3.9.0',
+  matterbridgeDevVersion: '3.9.0',
+  frontendVersion: '3.0.0',
   bridgeMode: 'bridge',
   restartMode: '',
   virtualMode: 'mounted_switch',
@@ -90,14 +98,14 @@ describe('Matterbridge Plugin Template', () => {
     vi.restoreAllMocks();
   });
 
-  it('should throw an error if matterbridge is not the required version', async () => {
+  it('should throw an error if matterbridge is not the required version', () => {
     expect(() => new TemplatePlatform({ ...mockMatterbridge, matterbridgeVersion: '2.0.0' }, mockLog, mockConfig)).toThrow(
-      'This plugin requires Matterbridge version >= "3.8.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
+      'This plugin requires Matterbridge version >= "3.9.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
     );
   });
 
   it('should create an instance of the platform', async () => {
-    instance = (await import('../src/module.js')).default(mockMatterbridge, mockLog, mockConfig) as TemplatePlatform;
+    instance = (await import('../src/module.js')).default(mockMatterbridge, mockLog, mockConfig);
     expect(instance).toBeInstanceOf(TemplatePlatform);
     // @ts-expect-error Accessing private method for testing purposes
     instance.setMatterNode(addBridgedEndpoint, removeBridgedEndpoint, removeAllBridgedEndpoints, registerVirtualDevice);
@@ -122,18 +130,35 @@ describe('Matterbridge Plugin Template', () => {
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Vitest');
     await instance.onStart();
     expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
-    expect(addBridgedEndpoint).toHaveBeenCalledTimes(1);
+    expect(addBridgedEndpoint).toHaveBeenCalledTimes(2);
   });
 
-  it('should call the command handlers', async () => {
+  it('should call the command subscribe handlers', async () => {
     for (const device of instance.getDevices()) {
-      if (device.hasClusterServer('onOff')) {
+      if (device.hasClusterServer(OnOff)) {
         await device.executeCommandHandler('on', {}, 'onOff', {} as any, device);
         await device.executeCommandHandler('off', {}, 'onOff', {} as any, device);
+        expect(mockLog.info).toHaveBeenCalledWith('Command on called on cluster onOff');
+        expect(mockLog.info).toHaveBeenCalledWith('Command off called on cluster onOff');
+      }
+      if (device.hasClusterServer(Thermostat)) {
+        const offlineContext = { fabric: undefined } as ActionContext;
+        device.eventsOf('thermostat').systemMode$Changed?.emit(Thermostat.SystemMode.Off, Thermostat.SystemMode.Auto, offlineContext);
+        device.eventsOf('thermostat').occupiedCoolingSetpoint$Changed?.emit(27, 25, offlineContext);
+        device.eventsOf('thermostat').occupiedHeatingSetpoint$Changed?.emit(19, 21, offlineContext);
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute systemMode changed offline from 1 to 0');
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedCoolingSetpoint changed offline from 25 to 27');
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedHeatingSetpoint changed offline from 21 to 19');
+
+        const onlineContext = { fabric: 1 } as ActionContext;
+        device.eventsOf('thermostat').systemMode$Changed?.emit(Thermostat.SystemMode.Off, Thermostat.SystemMode.Auto, onlineContext);
+        device.eventsOf('thermostat').occupiedCoolingSetpoint$Changed?.emit(27, 25, onlineContext);
+        device.eventsOf('thermostat').occupiedHeatingSetpoint$Changed?.emit(19, 21, onlineContext);
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute systemMode changed online from 1 to 0');
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedCoolingSetpoint changed online from 25 to 27');
+        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedHeatingSetpoint changed online from 21 to 19');
       }
     }
-    expect(mockLog.info).toHaveBeenCalledWith('Command on called on cluster onOff');
-    expect(mockLog.info).toHaveBeenCalledWith('Command off called on cluster onOff');
   });
 
   it('should configure', async () => {

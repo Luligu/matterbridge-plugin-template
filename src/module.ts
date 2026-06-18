@@ -22,9 +22,10 @@
  * limitations under the License.
  */
 
-import { BasePlatformConfig, MatterbridgeDynamicPlatform, MatterbridgeEndpoint, onOffOutlet, PlatformMatterbridge } from 'matterbridge';
-import { AnsiLogger, LogLevel } from 'matterbridge/logger';
-import { OnOff } from 'matterbridge/matter/clusters';
+import { type BasePlatformConfig, MatterbridgeDynamicPlatform, MatterbridgeEndpoint, onOffPlugInUnit, type PlatformMatterbridge, thermostat } from 'matterbridge';
+import type { AnsiLogger, LogLevel } from 'matterbridge/logger';
+import type { ActionContext } from 'matterbridge/matter';
+import { OnOff, Thermostat } from 'matterbridge/matter/clusters';
 
 // This allows to have type checking and autocompletion for the instance config.
 export type TemplatePlatformConfig = BasePlatformConfig & {
@@ -53,9 +54,9 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     super(matterbridge, log, config);
 
     // Verify that Matterbridge is the correct version
-    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.8.0')) {
+    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.9.0')) {
       throw new Error(
-        `This plugin requires Matterbridge version >= "3.8.0". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend."`,
+        `This plugin requires Matterbridge version >= "3.9.0". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend."`,
       );
     }
 
@@ -111,10 +112,10 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     // For example, you might fetch devices from an API.
     // and register them with the Matterbridge instance.
 
-    // Example: Create and register an outlet device
+    // Example: Create and register an outlet device (shows how to use the addCommandHandler method)
     // If you want to create an Accessory platform plugin and your platform extends MatterbridgeAccessoryPlatform,
     // instead of createDefaultBridgedDeviceBasicInformationClusterServer, call createDefaultBasicInformationClusterServer().
-    const outlet = new MatterbridgeEndpoint(onOffOutlet, { id: 'outlet1' })
+    const outlet = new MatterbridgeEndpoint(onOffPlugInUnit, { id: 'outlet1' })
       .createDefaultBridgedDeviceBasicInformationClusterServer('Outlet', 'SN123456', this.matterbridge.aggregatorVendorId, 'Matterbridge', 'Matterbridge Outlet', 10000, '1.0.0')
       .createDefaultPowerSourceWiredClusterServer()
       .addRequiredClusters() // This will add both server and client clusters that are required by the device.
@@ -129,9 +130,43 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     this.setSelectDevice('SN123456', 'Outlet');
 
     // Validate the device with the select before registering it.
-    const selected = this.validateDevice(['Outlet', 'SN123456']);
+    if (this.validateDevice(['Outlet', 'SN123456'])) {
+      // Register the device with this Matterbridge Platform.
+      await this.registerDevice(outlet);
+    }
 
-    // Register the device with this Matterbridge Platform.
-    if (selected) await this.registerDevice(outlet);
+    // Example: Create and register an thermostat device (shows how to use the subscribeAttribute method to listen for attribute changes)
+    // If you want to create an Accessory platform plugin and your platform extends MatterbridgeAccessoryPlatform,
+    // instead of createDefaultBridgedDeviceBasicInformationClusterServer, call createDefaultBasicInformationClusterServer().
+    const thermo = new MatterbridgeEndpoint(thermostat, { id: 'thermo1' })
+      .createDefaultBridgedDeviceBasicInformationClusterServer(
+        'Thermostat',
+        'SN654321',
+        this.matterbridge.aggregatorVendorId,
+        'Matterbridge',
+        'Matterbridge Thermostat',
+        10000,
+        '1.0.0',
+      )
+      .createDefaultPowerSourceBatteryClusterServer()
+      .addRequiredClusters() // This will add both server and client clusters that are required by the device.
+      .subscribeAttribute(Thermostat, 'systemMode', (newValue: Thermostat.SystemMode, oldValue: Thermostat.SystemMode, context: ActionContext) => {
+        this.log.info(`Attribute systemMode changed ${context.fabric === undefined ? 'offline' : 'online'} from ${oldValue} to ${newValue}`);
+      })
+      .subscribeAttribute(Thermostat, 'occupiedCoolingSetpoint', (newValue: number, oldValue: number, context: ActionContext) => {
+        this.log.info(`Attribute occupiedCoolingSetpoint changed ${context.fabric === undefined ? 'offline' : 'online'} from ${oldValue} to ${newValue}`);
+      })
+      .subscribeAttribute(Thermostat, 'occupiedHeatingSetpoint', (newValue: number, oldValue: number, context: ActionContext) => {
+        this.log.info(`Attribute occupiedHeatingSetpoint changed ${context.fabric === undefined ? 'offline' : 'online'} from ${oldValue} to ${newValue}`);
+      });
+
+    // Set the selectDevice for the thermostat we created. This is used to link the device with the select in the frontend.
+    this.setSelectDevice('SN654321', 'Thermostat');
+
+    // Validate the device with the select before registering it.
+    if (this.validateDevice(['Thermostat', 'SN654321'])) {
+      // Register the device with this Matterbridge Platform.
+      await this.registerDevice(thermo);
+    }
   }
 }
