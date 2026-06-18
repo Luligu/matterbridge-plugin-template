@@ -75,6 +75,12 @@
   },
   "scripts": {
     "start": "matterbridge",
+    "add": "matterbridge --add .",
+    "remove": "matterbridge --remove .",
+    "enable": "matterbridge --enable .",
+    "disable": "matterbridge --disable .",
+    "link": "npm link --no-fund --no-audit matterbridge",
+    "unlink": "npm unlink matterbridge",
     "build": "tsgo --project tsconfig.build.json",
     "buildProduction": "tsc --project tsconfig.build.production.json",
     "clean": "node scripts/clean.mjs",
@@ -115,13 +121,7 @@
     "npmPack": "npx shx cp package.json package.json.backup && node scripts/version.mjs dev && npm run prepublishOnly && npm pack && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
     "npmPublishTagDev": "npx shx cp package.json package.json.backup && node scripts/version.mjs dev && npm run prepublishOnly && npm publish --tag dev && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
     "npmPublishTagEdge": "npx shx cp package.json package.json.backup && node scripts/version.mjs edge && npm run prepublishOnly && npm publish --tag edge && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
-    "npmPublishTagLatest": "npx shx cp package.json package.json.backup && npm run prepublishOnly && npm publish --tag latest && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
-    "dev:link": "npm link --no-fund --no-audit matterbridge",
-    "matterbridge:add": "matterbridge -add .",
-    "matterbridge:remove": "matterbridge -remove .",
-    "matterbridge:enable": "matterbridge -enable .",
-    "matterbridge:disable": "matterbridge -disable .",
-    "matterbridge:list": "matterbridge -list"
+    "npmPublishTagLatest": "npx shx cp package.json package.json.backup && npm run prepublishOnly && npm publish --tag latest && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset"
   },
   "dependencies": {
     "node-ansi-logger": "3.2.1",
