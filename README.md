@@ -36,10 +36,10 @@ If you like this project and find it useful, please consider giving it a star on
 
 The project has the following already configured workflows:
 
-- build.yml: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
-- publish.yml: publish on npm under tag latest when you create a new release in GitHub and publish under tag dev on npm from main (or dev if it exist) branch every day at midnight UTC if there is a new commit. The workflow has been updated for trusted publishing / OIDC, so you need to setup the package npm settings to allow it (i.e. authorize publish.yml).
-- codeql.yml: run CodeQL from the main branch on each push and pull request.
-- codecov.yml: run CodeCov from the main branch on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
+- **build.yml**: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
+- **publish.yml**: publish on npm under tag latest when you create a new release in GitHub and publish under tag dev on npm from main (or dev if it exist) branch every day at midnight UTC if there is a new commit. The workflow has been updated for trusted publishing / OIDC, so you need to setup the package npm settings to allow it (i.e. authorize publish.yml).
+- **codeql.yml**: run CodeQL from the main branch on each push and pull request.
+- **codecov.yml**: run CodeCov from the main branch on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
 
 ## ⚠️ Warning: GitHub Actions Costs for Private Repositories
 
@@ -76,10 +76,14 @@ This template evolves over time to keep up with Matterbridge, Node.js, TypeScrip
 If your plugin repository was created from this template, it’s a good habit to review new template releases/commits and selectively copy the relevant files into your plugin repo. Typical “template-owned” areas to keep in sync include:
 
 - `.claude/` (Claude AI settings)
+- `.codex/` (Codex AI settings)
 - `.devcontainer/` (development environment and extensions)
 - `.github/` (Copilot AI setting and build/publish/CodeQL/Codecov pipelines)
 - `.vscode/` (repo settings and tasks coordinated with tooling configs)
-- Tooling configs like `eslint.config.js`, `.prettierignore`, `prettier.config.js`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
+- `AGENTS.md` (Codex AI instructions)
+- `CLAUDE.md` (Claude AI instructions)
+- `STYLEGUIDE.md` (Generic AI instructions)
+- Tooling configs like `.oxlintrc.json`, `.oxfmtrc.json`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
 - Helper scripts under `scripts/` (release/version automation)
 
 Tip: prefer copying and adapting these files rather than rewriting them from scratch—staying close to the template makes future updates faster and less error-prone.
@@ -135,6 +139,42 @@ Dev containers have networking limitations depending on the host OS and Docker s
 - ✅ Matterbridge and plugins work correctly, including pairing
 
 - ✅ Matterbridge frontend works normally
+
+## Repository setup
+
+> **Note:** This repository uses a new toolchain. It replaces the traditional TypeScript / ESLint / Prettier / Jest stack with a faster, lighter setup.
+
+- The traditional TypeScript package has been replaced by **[TypeScript Native](https://github.com/microsoft/typescript-go)**. The `typescript` package is kept only as a publish-time dependency while tsgo is still in preview.
+- **No ESLint, no Prettier** — replaced by the [oxc](https://oxc.rs) stack: **[oxlint](https://oxc.rs/docs/guide/usage/linter.html)** for linting and **[oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)** for formatting.
+- Testing with Jest but also **[Vitest](https://vitest.dev)**, which is much faster and natively supports ESM without extra configuration.
+- **Far fewer development dependencies** — the number of installed packages drops from **~600** to **~80** if you only use Vitest. A clean install is much faster.
+- **Much faster linting and formatting** — oxlint and oxfmt run in a fraction of the time required by the ESLint / Prettier pipeline.
+- **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
+- **Editor support** — uses the VS Code extensions for tsgo and oxc to get the same experience in the editor.
+
+## Copilot instructions
+
+| File                                                             | Notes                                                            |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `.github/copilot-instructions.md`                                | Main project instructions — always loaded                        |
+| `.github/instructions/matterbridge/matterbridge.instructions.md` | Matterbridge endpoint guide — dedicated Copilot instruction file |
+| `.github/instructions/testing/unit-tests.instructions.md`        | Testing standards — scoped to `**/*.test.ts`                     |
+
+## Claude instructions
+
+| File                                                      | Notes                                                 |
+| --------------------------------------------------------- | ----------------------------------------------------- |
+| `CLAUDE.md`                                               | Main project instructions — always loaded             |
+| `.claude/rules/matterbridge/matterbridge.instructions.md` | Matterbridge endpoint guide — loaded for all contexts |
+| `.claude/rules/testing/unit-tests.instructions.md`        | Testing standards — scoped to `**/*.test.ts`          |
+
+## Codex/Agents instructions
+
+| File                         | Notes                                             |
+| ---------------------------- | ------------------------------------------------- |
+| `AGENTS.md`                  | Main project instructions                         |
+| `.codex/config.toml`         | Codex project permissions, approvals, and profile |
+| `.codex/rules/default.rules` | Codex command allow, prompt, and deny rules       |
 
 ## Documentation
 

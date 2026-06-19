@@ -123,15 +123,11 @@
     "npmPublishTagEdge": "npx shx cp package.json package.json.backup && node scripts/version.mjs edge && npm run prepublishOnly && npm publish --tag edge && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
     "npmPublishTagLatest": "npx shx cp package.json package.json.backup && npm run prepublishOnly && npm publish --tag latest && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset"
   },
-  "dependencies": {
-    "node-ansi-logger": "3.2.1",
-    "node-persist-manager": "2.0.2"
-  },
   "devDependencies": {
     "@jest/globals": "30.4.1",
     "@types/jest": "30.0.0",
-    "@types/node": "25.9.3",
-    "@typescript/native-preview": "7.0.0-dev.20260618.1",
+    "@types/node": "26.0.0",
+    "@typescript/native-preview": "7.0.0-dev.20260619.1",
     "@vitest/coverage-v8": "4.1.9",
     "cross-env": "10.1.0",
     "jest": "30.4.2",
