@@ -152,6 +152,10 @@ Dev containers have networking limitations depending on the host OS and Docker s
 - **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
 - **Editor support** — uses the VS Code extensions for tsgo and oxc to get the same experience in the editor.
 
+## Style guide
+
+See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conventions used in this repository.
+
 ## Copilot instructions
 
 | File                                                             | Notes                                                            |
