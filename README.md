@@ -155,10 +155,10 @@ Dev containers have networking limitations depending on the host OS and Docker s
 
 ## Remove Jest
 
-If you only want to use Vitest, run the following commands to remove Jest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
+If you only want to use Vitest (better choice cause it is much faster and natively supports ESM without extra configuration), run the following commands to remove Jest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
 
 ```shell
-npm install shx --no-save
+npm install shx  --no-fund --no-audit --no-save
 npx shx rm -rf test jest.config.js tsconfig.jest.json
 node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'jest'); config.include = config.include.filter((include) => include !== 'test/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
 npm pkg delete automator.jest scripts.test scripts.test:watch scripts.test:verbose scripts.test:coverage scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
@@ -172,7 +172,7 @@ npm run softReset
 If you only want to use Jest, run the following commands to remove Vitest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
 
 ```shell
-npm install shx --no-save
+npm install shx --no-fund --no-audit --no-save
 npx shx rm -rf vitest vite.config.ts
 node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'vitest/globals'); config.include = config.include.filter((include) => include !== 'vitest/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
 npm pkg delete automator.vitest scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
