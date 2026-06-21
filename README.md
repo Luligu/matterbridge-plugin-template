@@ -27,10 +27,11 @@ If you like this project and find it useful, please consider giving it a star on
 ## Features
 
 - **Dev Container support for instant development environment**.
-- Pre-configured TypeScript, ESLint, Prettier, Jest and Vitest.
+- Pre-configured TypeScript, TypeScript Native (tsgo), Oxlint, Oxfmt, Jest and Vitest.
 - Example project structure for Accessory and Dynamic platforms.
 - Ready for customization for your own plugin.
 - The project has an already configured Jest / Vitest test unit (with 100% coverage) that you can expand while you add your own plugin logic.
+- Cross-platform scripts to remove Jest or Vitest when you choose one test runner.
 
 ## Available workflows
 
@@ -159,7 +160,7 @@ If you only want to use Vitest, run the following commands to remove Jest, its t
 ```shell
 npm install shx --no-save
 npx shx rm -rf test jest.config.js tsconfig.jest.json
-npx shx sed -i -e 's/"jest", //g' -e 's/, "test\/\*\*\/\*.ts"//g' tsconfig.json
+node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'jest'); config.include = config.include.filter((include) => include !== 'test/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
 npm pkg delete automator.jest scripts.test scripts.test:watch scripts.test:verbose scripts.test:coverage scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
 npm pkg set "scripts.test=vitest run" "scripts.test:watch=vitest watch" "scripts.test:verbose=vitest run --reporter verbose" "scripts.test:coverage=vitest run --coverage --coverage.thresholds.statements=100 --coverage.thresholds.branches=100 --coverage.thresholds.lines=100 --coverage.thresholds.functions=100" "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
 npm uninstall @jest/globals @types/jest cross-env jest ts-jest
@@ -173,7 +174,7 @@ If you only want to use Jest, run the following commands to remove Vitest, its t
 ```shell
 npm install shx --no-save
 npx shx rm -rf vitest vite.config.ts
-npx shx sed -i -e 's/, "vitest\/globals"//g' -e 's/, "vitest\/\*\*\/\*.ts"//g' tsconfig.json
+node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'vitest/globals'); config.include = config.include.filter((include) => include !== 'vitest/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
 npm pkg delete automator.vitest scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
 npm pkg set "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
 npm uninstall @vitest/coverage-v8 vitest

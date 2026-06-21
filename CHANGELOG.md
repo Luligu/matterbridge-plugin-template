@@ -42,6 +42,9 @@ If you like this project and find it useful, please consider giving it a star on
 - [codex]: Add `.codex\config.toml` configuration for Codex.
 - [codex]: Add `.codex\rules\default.rules` rules (sandbox) for Codex.
 
+- [readme]: Add a [Remove Jest guide](README.md#remove-jest) that deletes Jest files and dependencies, then promotes Vitest to the standard test scripts.
+- [readme]: Add a [Remove Vitest guide](README.md#remove-vitest) that deletes Vitest files and dependencies while retaining Jest as the standard test runner.
+
 ### Changed
 
 - [package]: Update dependencies.
