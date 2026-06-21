@@ -152,6 +152,34 @@ Dev containers have networking limitations depending on the host OS and Docker s
 - **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
 - **Editor support** — uses the VS Code extensions for tsgo and oxc to get the same experience in the editor.
 
+## Remove Jest
+
+If you only want to use Vitest, run the following commands to remove Jest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
+
+```shell
+npm install shx --no-save
+npx shx rm -rf test jest.config.js tsconfig.jest.json
+npx shx sed -i -e 's/"jest", //g' -e 's/, "test\/\*\*\/\*.ts"//g' tsconfig.json
+npm pkg delete automator.jest scripts.test scripts.test:watch scripts.test:verbose scripts.test:coverage scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
+npm pkg set "scripts.test=vitest run" "scripts.test:watch=vitest watch" "scripts.test:verbose=vitest run --reporter verbose" "scripts.test:coverage=vitest run --coverage --coverage.thresholds.statements=100 --coverage.thresholds.branches=100 --coverage.thresholds.lines=100 --coverage.thresholds.functions=100" "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
+npm uninstall @jest/globals @types/jest cross-env jest ts-jest
+npm run softReset
+```
+
+## Remove Vitest
+
+If you only want to use Jest, run the following commands to remove Vitest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
+
+```shell
+npm install shx --no-save
+npx shx rm -rf vitest vite.config.ts
+npx shx sed -i -e 's/, "vitest\/globals"//g' -e 's/, "vitest\/\*\*\/\*.ts"//g' tsconfig.json
+npm pkg delete automator.vitest scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
+npm pkg set "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
+npm uninstall @vitest/coverage-v8 vitest
+npm run softReset
+```
+
 ## Style guide
 
 See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conventions used in this repository.

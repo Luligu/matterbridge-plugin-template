@@ -51,7 +51,7 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgeDevVersion: '3.9.0',
   frontendVersion: '3.0.0',
   bridgeMode: 'bridge',
-  restartMode: '',
+  restartMode: 'none',
   virtualMode: 'mounted_switch',
   aggregatorVendorId: VendorId(0xfff1),
   aggregatorVendorName: 'Matterbridge',
