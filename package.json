@@ -1,6 +1,6 @@
 {
   "name": "matterbridge-plugin-template",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
   "license": "Apache-2.0",
@@ -136,14 +136,14 @@
   "devDependencies": {
     "@jest/globals": "30.4.1",
     "@types/jest": "30.0.0",
-    "@types/node": "26.0.1",
-    "@typescript/native-preview": "7.0.0-dev.20260626.1",
+    "@types/node": "26.1.0",
+    "@typescript/native-preview": "7.0.0-dev.20260704.1",
     "@vitest/coverage-v8": "4.1.9",
     "cross-env": "10.1.0",
     "jest": "30.4.2",
-    "oxfmt": "0.56.0",
-    "oxlint": "1.71.0",
-    "oxlint-tsgolint": "0.23.0",
+    "oxfmt": "0.57.0",
+    "oxlint": "1.72.0",
+    "oxlint-tsgolint": "0.24.0",
     "ts-jest": "29.4.11",
     "typescript": "6.0.3",
     "vitest": "4.1.9"

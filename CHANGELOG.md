@@ -32,6 +32,16 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
+## [2.0.1] - 2026-07-05
+
+### Changed
+
+- [package]: Update dependencies.
+- [package]: Upgrade package.
+- [agents]: Update agent instructions.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [2.0.0] - 2026-06-18
 
 ### Breaking changes
