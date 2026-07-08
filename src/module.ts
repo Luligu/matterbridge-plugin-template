@@ -1,7 +1,6 @@
 /**
- * This file contains the plugin template.
- *
- * @file module.ts
+ * @file src/module.ts
+ * @description This file contains the plugin template.
  * @author Luca Liguori
  * @created 2025-06-15
  * @version 2.0.0

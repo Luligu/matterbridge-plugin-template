@@ -36,6 +36,7 @@ If you like this project and find it useful, please consider giving it a star on
 
 ### Changed
 
+- [package]: Apply uniform style.
 - [package]: Update dependencies.
 - [package]: Upgrade package.
 - [agents]: Update agent instructions.
