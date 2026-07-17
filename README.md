@@ -78,6 +78,7 @@ This template evolves over time to keep up with Matterbridge, Node.js, TypeScrip
 
 If your plugin repository was created from this template, it’s a good habit to review new template releases/commits and selectively copy the relevant files into your plugin repo. Typical “template-owned” areas to keep in sync include:
 
+- `.agents/` (Agents / Codex AI settings)
 - `.claude/` (Claude AI settings)
 - `.codex/` (Codex AI settings)
 - `.devcontainer/` (development environment and extensions)
@@ -147,41 +148,13 @@ Dev containers have networking limitations depending on the host OS and Docker s
 
 > **Note:** This repository uses a new toolchain. It replaces the traditional TypeScript / ESLint / Prettier / Jest stack with a faster, lighter setup.
 
-- The traditional TypeScript package has been replaced by **[TypeScript Native](https://github.com/microsoft/typescript-go)**. The `typescript` package is kept only as a publish-time dependency while tsgo is still in preview.
+- The traditional TypeScript package has been replaced by **[TypeScript Native 7](https://github.com/microsoft/typescript-go)**.
 - **No ESLint, no Prettier** — replaced by the [oxc](https://oxc.rs) stack: **[oxlint](https://oxc.rs/docs/guide/usage/linter.html)** for linting and **[oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)** for formatting.
-- Testing with Jest but also **[Vitest](https://vitest.dev)**, which is much faster and natively supports ESM without extra configuration.
-- **Far fewer development dependencies** — the number of installed packages drops from **~600** to **~80** if you only use Vitest. A clean install is much faster.
+- Testing with **[Vitest](https://vitest.dev)**, which is much faster and natively supports ESM without extra configuration.
+- **Far fewer development dependencies** — the number of installed packages drops from **~600** to **~60**. A clean install is much faster.
 - **Much faster linting and formatting** — oxlint and oxfmt run in a fraction of the time required by the ESLint / Prettier pipeline.
 - **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
 - **Editor support** — uses the VS Code extensions for tsgo and oxc to get the same experience in the editor.
-
-## Remove Jest
-
-If you only want to use Vitest (better choice cause it is much faster and natively supports ESM without extra configuration), run the following commands to remove Jest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
-
-```shell
-npm install shx  --no-fund --no-audit --no-save
-npx shx rm -rf test jest.config.js tsconfig.jest.json
-node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'jest'); config.include = config.include.filter((include) => include !== 'test/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
-npm pkg delete automator.jest scripts.test scripts.test:watch scripts.test:verbose scripts.test:coverage scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
-npm pkg set "scripts.test=vitest run" "scripts.test:watch=vitest watch" "scripts.test:verbose=vitest run --reporter verbose" "scripts.test:coverage=vitest run --coverage --coverage.thresholds.statements=100 --coverage.thresholds.branches=100 --coverage.thresholds.lines=100 --coverage.thresholds.functions=100" "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
-npm uninstall @jest/globals @types/jest cross-env jest ts-jest
-npm run softReset
-```
-
-## Remove Vitest
-
-If you only want to use Jest, run the following commands to remove Vitest, its tests, configuration, scripts, and unused dependencies. `shx` provides the file-removal commands on Windows, macOS, and Linux.
-
-```shell
-npm install shx --no-fund --no-audit --no-save
-npx shx rm -rf vitest vite.config.ts
-node -e "const fs = require('node:fs'); const path = 'tsconfig.json'; const config = JSON.parse(fs.readFileSync(path, 'utf8')); config.compilerOptions.types = config.compilerOptions.types.filter((type) => type !== 'vitest/globals'); config.include = config.include.filter((include) => include !== 'vitest/**/*.ts'); fs.writeFileSync(path, JSON.stringify(config, null, 2) + '\n');"
-npm pkg delete automator.vitest scripts.test:vitest scripts.test:vitest:watch scripts.test:vitest:verbose scripts.test:vitest:coverage
-npm pkg set "scripts.runMeBeforePublish=npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage"
-npm uninstall @vitest/coverage-v8 vitest
-npm run softReset
-```
 
 ## Style guide
 

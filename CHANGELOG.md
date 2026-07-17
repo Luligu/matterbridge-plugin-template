@@ -32,6 +32,20 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
+## [2.1.0] - 2026-07-17
+
+### Breaking changes
+
+- [matterbridge]: Require matterbridge v.3.10.0 with matter v.1.6.0 and matter.js v.0.17.5.
+- [jest]: Remove jest stack.
+
+### Changed
+
+- [package]: Apply uniform style.
+- [package]: Update dependencies.
+- [package]: Upgrade package.
+- [agents]: Update agent instructions.
+
 ## [2.0.1] - 2026-07-05
 
 ### Changed
