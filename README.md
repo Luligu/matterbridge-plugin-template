@@ -161,23 +161,23 @@ See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conve
 
 ## Copilot instructions
 
-| File                                                             | Notes                                                            |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `.github/copilot-instructions.md`                                | Main project instructions — always loaded                        |
-| `.github/instructions/chip-tests/chip-tests.instructions.md`     | CHIP conformance test harness — scoped to CHIP test files        |
-| `.github/instructions/matterbridge/matterbridge.instructions.md` | Matterbridge endpoint guide — dedicated Copilot instruction file |
+| File                                                                   | Notes                                                                              |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `.github/copilot-instructions.md`                                      | Main project instructions — always loaded                                          |
+| `.github/instructions/chip-tests/chip-tests.instructions.md`           | CHIP conformance test harness — scoped to CHIP test files                          |
+| `.github/instructions/matterbridge/matterbridge.instructions.md`       | Matterbridge endpoint guide — dedicated Copilot instruction file                   |
 | `.github/instructions/plugin-frontend/plugin-frontend.instructions.md` | Plugin frontend SPA and custom REST API guide — scoped to frontend and plugin code |
-| `.github/instructions/testing/unit-tests.instructions.md`        | Testing standards — scoped to `**/*.test.ts`                     |
+| `.github/instructions/testing/unit-tests.instructions.md`              | Testing standards — scoped to `**/*.test.ts`                                       |
 
 ## Claude instructions
 
-| File                                                      | Notes                                                 |
-| --------------------------------------------------------- | ----------------------------------------------------- |
-| `CLAUDE.md`                                               | Main project instructions — always loaded             |
-| `.claude/rules/chip-tests/chip-tests.instructions.md`     | CHIP conformance test harness — scoped to CHIP test files |
-| `.claude/rules/matterbridge/matterbridge.instructions.md` | Matterbridge endpoint guide — loaded for all contexts |
+| File                                                            | Notes                                                                              |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `CLAUDE.md`                                                     | Main project instructions — always loaded                                          |
+| `.claude/rules/chip-tests/chip-tests.instructions.md`           | CHIP conformance test harness — scoped to CHIP test files                          |
+| `.claude/rules/matterbridge/matterbridge.instructions.md`       | Matterbridge endpoint guide — loaded for all contexts                              |
 | `.claude/rules/plugin-frontend/plugin-frontend.instructions.md` | Plugin frontend SPA and custom REST API guide — scoped to frontend and plugin code |
-| `.claude/rules/testing/unit-tests.instructions.md`        | Testing standards — scoped to `**/*.test.ts`          |
+| `.claude/rules/testing/unit-tests.instructions.md`              | Testing standards — scoped to `**/*.test.ts`                                       |
 
 ## Codex/Agents instructions
 
