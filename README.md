@@ -143,21 +143,21 @@ Dev containers have networking limitations depending on the host OS and Docker s
 
 - ✅ Matterbridge frontend works normally
 
-## Repository setup
-
-> **Note:** This repository uses a new toolchain. It replaces the traditional TypeScript / ESLint / Prettier / Jest stack with a faster, lighter setup.
-
-- The traditional TypeScript package has been replaced by **[TypeScript Native 7](https://github.com/microsoft/typescript-go)**.
-- **No ESLint, no Prettier** — replaced by the [oxc](https://oxc.rs) stack: **[oxlint](https://oxc.rs/docs/guide/usage/linter.html)** for linting and **[oxfmt](https://oxc.rs/docs/guide/usage/formatter.html)** for formatting.
-- Testing with **[Vitest](https://vitest.dev)**, which is much faster and natively supports ESM without extra configuration.
-- **Far fewer development dependencies** — the number of installed packages drops from **~600** to **~60**. A clean install is much faster.
-- **Much faster linting and formatting** — oxlint and oxfmt run in a fraction of the time required by the ESLint / Prettier pipeline.
-- **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
-- **Editor support** — uses the VS Code extensions for tsgo and oxc to get the same experience in the editor.
-
 ## Style guide
 
 See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conventions used in this repository.
+
+## Repository toolchain
+
+> **Note:** This repository uses a new toolchain. It replaces the traditional TypeScript / ESLint / Prettier / Jest stack with a faster and lighter setup.
+
+- **No `typescript 6.x` package** — replaced by [TypeScript Native 7.x](https://github.com/microsoft/typescript-go).
+- **No ESLint, no Prettier** — replaced by the [oxc](https://oxc.rs) stack: [oxlint](https://oxc.rs/docs/guide/usage/linter.html) for linting and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for formatting.
+- **No Jest** — replaced by [Vitest](https://vitest.dev), which is much faster and natively supports ESM without extra configuration.
+- **Far fewer development dependencies** — the number of installed packages drops from **~600** to **~75**. A clean install is much faster.
+- **Much faster linting and formatting** — oxlint and oxfmt run in a fraction of the time required by the ESLint / Prettier pipeline.
+- **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
+- **Editor support** — use the VS Code extensions for tsgo and oxc to get the same experience in the editor.
 
 ## Copilot instructions
 
@@ -191,8 +191,8 @@ See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conve
 | `.codex/config.toml`         | Codex project permissions, approvals, and profile |
 | `.codex/rules/default.rules` | Codex command allow, prompt, and deny rules       |
 
-## Documentation
+## Development guide
 
-Refer to the Matterbridge [documentation](https://matterbridge.io) for other guidelines.
+Refer to the Matterbridge [Development guide](https://matterbridge.io/README-DEV.html) for other guidelines.
 
 ---
