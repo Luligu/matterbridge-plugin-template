@@ -154,6 +154,9 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
         '1.0.0',
       )
       .createDefaultPowerSourceBatteryClusterServer()
+      // Configure realistic setpoint limits (7-30 °C heating, 16-35 °C cooling) instead of the 0-50 °C
+      // defaults, so the heating/cooling limits satisfy the Matter spec minimum of 7 °C for MinHeatSetpointLimit.
+      .createDefaultThermostatClusterServer(23, 21, 25, 2.5, 7, 30, 16, 35)
       .addRequiredClusters() // This will add both server and client clusters that are required by the device.
       .subscribeAttribute(Thermostat, 'systemMode', (newValue: Thermostat.SystemMode, oldValue: Thermostat.SystemMode, context: ActionContext) => {
         this.log.info(`Attribute systemMode changed ${context.fabric === undefined ? 'offline' : 'online'} from ${oldValue} to ${newValue}`);

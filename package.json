@@ -72,6 +72,7 @@
     "git": true,
     "version": true,
     "publish": true,
+    "chip": true,
     "coverage": {
       "lines": 100,
       "functions": 100,
@@ -116,6 +117,9 @@
     "git:hardreset:edge": "git fetch origin && git checkout edge && git reset --hard origin/edge",
     "git:merge:dev": "git fetch origin && git checkout -b dev-backup-001 && git checkout dev && git merge origin/main && git push origin dev",
     "git:rebase:dev": "git fetch origin && git checkout -b dev-backup-001 && git checkout dev && git rebase origin/main && git push --force-with-lease origin dev",
+    "chip:start": "node scripts/run-chip-tests.mjs --start",
+    "chip:test": "node scripts/run-chip-tests.mjs",
+    "chip:stop": "node scripts/run-chip-tests.mjs --stop",
     "reset": "npm run deepClean && npm run softReset",
     "softReset": "npm install --no-fund --no-audit && npm prune --no-fund --no-audit && npm link --no-fund --no-audit matterbridge && npm run build && npm run typecheck",
     "checkDependencies": "npm install --no-fund --no-audit --no-save npm-check-updates && ncu && npm run softReset",

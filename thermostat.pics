@@ -1,0 +1,47 @@
+# PICS overlay for the Thermostat device (endpoint 3, "thermo1") registered by this plugin template.
+#
+# The curated /root/matterbridge.pics baked into the luligu/matterbridge:chip-test image has no
+# Thermostat (TSTAT) section, and the generic src/app/tests/suites/certification/ci-pics-values file
+# overclaims TSTAT.S.F08 (Presets) and TSTAT.S.F0a (ThermostatSuggestions), which this device does not
+# implement. Unlisted PICS keys default to false (see matter.testing.matter_testing.check_pics /
+# the YAML runner's own PICS loader), so only entries that must be true need to be listed here.
+#
+# Verified against the live device (FeatureMap=35, AttributeList=[0,3,4,5,6,17,18,21,22,23,24,25,27,28,30,41,...],
+# AcceptedCommandList=[0], GeneratedCommandList=[]) via:
+#   docker exec chip-test /root/connectedhomeip/out/host/chip-tool thermostat read feature-map 0x12344321 3
+#   (and a throwaway ReadAttribute wildcard script, see .claude/rules/chip-tests/chip-tests.instructions.md #4)
+
+# Server, AUTO thermostat: Heating + Cooling + AutoMode features only.
+TSTAT.S=1
+TSTAT.S.F00=1
+TSTAT.S.F01=1
+TSTAT.S.F02=0
+TSTAT.S.F03=0
+TSTAT.S.F04=0
+TSTAT.S.F05=1
+TSTAT.S.F06=0
+TSTAT.S.F07=0
+TSTAT.S.F08=0
+TSTAT.S.F09=0
+TSTAT.S.F0a=0
+
+# Server attributes actually present in AttributeList.
+TSTAT.S.A0000=1
+TSTAT.S.A0003=1
+TSTAT.S.A0004=1
+TSTAT.S.A0005=1
+TSTAT.S.A0006=1
+TSTAT.S.A0011=1
+TSTAT.S.A0012=1
+TSTAT.S.A0015=1
+TSTAT.S.A0016=1
+TSTAT.S.A0017=1
+TSTAT.S.A0018=1
+TSTAT.S.A0019=1
+TSTAT.S.A001b=1
+TSTAT.S.A001c=1
+TSTAT.S.A001e=1
+TSTAT.S.A0029=1
+
+# Server commands: only SetpointRaiseLower (0x00) is in AcceptedCommandList; no generated responses.
+TSTAT.S.C00.Rsp=1
