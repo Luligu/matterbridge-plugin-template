@@ -33,7 +33,7 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
-## [2.1.1] - Dev branch
+## [2.1.1] - 2026-08-14
 
 ### Breaking changes
 
@@ -42,7 +42,7 @@ If you like this project and find it useful, please consider giving it a star on
 ### Added
 
 - [chip]: Add chip-test toolchain agents instruction and chip-test runner.
-- [chip]: Add `chipTests.json`/`chipTests.md` with the generic device basic composition, conformance and default warnings tests.
+- [chip]: Add `chipTests.json`/`chipTests.md` with the generic device basic composition, conformance and default warnings tests (all tests pass ✅).
 - [frontend]: Add plugin-frontend agents instructions.
 - [readme]: Update README with additional instructions for CHIP tests and plugin frontend.
 
