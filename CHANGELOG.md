@@ -33,7 +33,19 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
-## [2.1.2] - Dev branch
+## [2.1.2] - 2026-08-29
+
+### Added
+
+- [devcontainer]: Add `Dev Container` v.2.0.0 with dual Node and Bun runtime support.
+
+### Changed
+
+- [package]: Upgrade package.
+- [package]: Bump `oxfmt` to v.0.65.0.
+- [package]: Bump `oxlint` to v.1.80.0.
+- [package]: Bump `vitest` to v.4.1.11.
+- [package]: Bump `@types/node` to v.26.4.0.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
