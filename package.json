@@ -109,7 +109,7 @@
     "version:patch": "npm version patch --no-git-tag-version",
     "version:minor": "npm version minor --no-git-tag-version",
     "version:major": "npm version major --no-git-tag-version",
-    "git:status": "git status && git branch -vv && git stash list && git fsck --full --no-reflogs",
+    "git:status": "git status && git branch -vv && git stash list && git fsck --full --no-reflogs --no-dangling && git worktree list",
     "git:remote": "git remote -v && git remote show origin",
     "git:prune": "git fetch --prune --prune-tags",
     "git:hardreset:main": "git fetch origin && git checkout main && git reset --hard origin/main",
@@ -122,6 +122,7 @@
     "chip:stop": "node scripts/run-chip-tests.mjs --stop",
     "reset": "npm run deepClean && npm run softReset",
     "softReset": "npm install --no-fund --no-audit && npm prune --no-fund --no-audit && npm link --no-fund --no-audit matterbridge && npm run build && npm run typecheck",
+    "softReset:bun": "bun install && bun prune && bun link --no-fund --no-audit matterbridge && bun run build && bun run typecheck",
     "checkDependencies": "npm install --no-fund --no-audit --no-save npm-check-updates && ncu && npm run softReset",
     "updateDependencies": "npm install --no-fund --no-audit --no-save npm-check-updates && ncu -u && npm run softReset",
     "runMeBeforePublish": "npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage",
@@ -132,16 +133,16 @@
     "npmPublishTagLatest": "npx shx cp package.json package.json.backup && npm run prepublishOnly && npm publish --tag latest && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset"
   },
   "dependencies": {
-    "node-ansi-logger": "3.3.0",
-    "node-persist-manager": "2.1.0"
+    "node-ansi-logger": "3.3.1",
+    "node-persist-manager": "2.1.1"
   },
   "devDependencies": {
-    "@types/node": "26.4.0",
-    "@vitest/coverage-v8": "4.1.11",
-    "oxfmt": "0.65.0",
-    "oxlint": "1.80.0",
+    "@types/node": "24.13.4",
+    "@vitest/coverage-v8": "5.0.0",
+    "oxfmt": "0.67.0",
+    "oxlint": "1.82.0",
     "oxlint-tsgolint": "7.0.2001",
     "typescript": "7.0.2",
-    "vitest": "4.1.11"
+    "vitest": "5.0.0"
   }
 }

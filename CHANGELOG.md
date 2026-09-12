@@ -33,7 +33,23 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
-## [2.1.3] - Dev branch
+## [2.1.3] - 2026-09-12
+
+### Added
+
+- [agents]: Add shared agents setup with Claude, Codex, Gemini (Google Antigravity) and Copilot [README](.agents/README.md).
+- [Dev Container]: Add Matterbridge Dev Container v.2.2.0 [README](.devcontainer/README.md).
+
+### Changed
+
+- [package]: Upgrade package.
+- [package]: Bump `@types/node` to v.24.13.4.
+- [package]: Bump `@vitest/coverage-v8` to v.5.0.0.
+- [package]: Bump `node-ansi-logger` to v.3.3.1.
+- [package]: Bump `node-persist-manager` to v.2.1.1.
+- [package]: Bump `oxfmt` to v.0.67.0.
+- [package]: Bump `oxlint` to v.1.82.0.
+- [package]: Bump `vitest` to v.5.0.0.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
