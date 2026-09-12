@@ -35,6 +35,10 @@ If you like this project and find it useful, please consider giving it a star on
 
 ## [2.1.3] - 2026-09-12
 
+### Breaking changes
+
+- [matterbridge]: Require matterbridge v.3.10.10 with matter v.1.6.0.
+
 ### Added
 
 - [agents]: Add shared agents setup with Claude, Codex, Gemini (Google Antigravity) and Copilot [README](.agents/README.md).

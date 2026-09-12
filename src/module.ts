@@ -53,9 +53,9 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     super(matterbridge, log, config);
 
     // Verify that Matterbridge is the correct version
-    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.10.9')) {
+    if (typeof this.verifyMatterbridgeVersion !== 'function' || !this.verifyMatterbridgeVersion('3.10.10')) {
       throw new Error(
-        `This plugin requires Matterbridge version >= "3.10.9". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend.`,
+        `This plugin requires Matterbridge version >= "3.10.10". Please update Matterbridge from ${this.matterbridge.matterbridgeVersion} to the latest version in the frontend.`,
       );
     }
 
@@ -133,11 +133,11 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
         outlet.log.info(`Command ${data.command} called on cluster ${data.cluster}`);
       })
       .subscribeCommand(OnOff, 'on', (data) => {
-        // This is called (requires matterbridge 3.10.10) after the command has been validated and state updates have been applied. You can use this to react to the command execution.
+        // This is called after the command has been validated and state updates have been applied. You can use this to react to the command execution.
         outlet.log.info(`Command ${data.command} executed on cluster ${data.cluster}`);
       })
       .subscribeCommand(OnOff, 'off', (data) => {
-        // This is called (requires matterbridge 3.10.10) after the command has been validated and state updates have been applied. You can use this to react to the command execution.
+        // This is called after the command has been validated and state updates have been applied. You can use this to react to the command execution.
         outlet.log.info(`Command ${data.command} executed on cluster ${data.cluster}`);
       });
 

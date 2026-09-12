@@ -73,6 +73,7 @@
     "version": true,
     "publish": true,
     "chip": true,
+    "workflow": "dev",
     "coverage": {
       "lines": 100,
       "functions": 100,
