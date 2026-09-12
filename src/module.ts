@@ -125,10 +125,20 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
       .createDefaultPowerSourceWiredClusterServer()
       .addRequiredClusters() // This will add both server and client clusters that are required by the device.
       .addCommandHandler('on', (data) => {
-        this.log.info(`Command on called on cluster ${data.cluster}`);
+        // This is called before any validation and state updates are applied. You can use this to intercept commands early.
+        outlet.log.info(`Command ${data.command} called on cluster ${data.cluster}`);
       })
       .addCommandHandler('off', (data) => {
-        this.log.info(`Command off called on cluster ${data.cluster}`);
+        // This is called before any validation and state updates are applied. You can use this to intercept commands early.
+        outlet.log.info(`Command ${data.command} called on cluster ${data.cluster}`);
+      })
+      .subscribeCommand(OnOff, 'on', (data) => {
+        // This is called (requires matterbridge 3.10.10) after the command has been validated and state updates have been applied. You can use this to react to the command execution.
+        outlet.log.info(`Command ${data.command} executed on cluster ${data.cluster}`);
+      })
+      .subscribeCommand(OnOff, 'off', (data) => {
+        // This is called (requires matterbridge 3.10.10) after the command has been validated and state updates have been applied. You can use this to react to the command execution.
+        outlet.log.info(`Command ${data.command} executed on cluster ${data.cluster}`);
       });
 
     // Set the selectDevice for the outlet we created. This is used to link the device with the select in the frontend.
