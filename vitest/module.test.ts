@@ -52,9 +52,9 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgePluginDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.10.0',
-  matterbridgeLatestVersion: '3.10.0',
-  matterbridgeDevVersion: '3.10.0',
+  matterbridgeVersion: '3.10.9',
+  matterbridgeLatestVersion: '3.10.9',
+  matterbridgeDevVersion: '3.10.9',
   frontendVersion: '3.0.0',
   bridgeMode: 'bridge',
   restartMode: 'docker',
@@ -106,7 +106,7 @@ describe('Matterbridge Plugin Template', () => {
 
   it('should throw an error if matterbridge is not the required version', () => {
     expect(() => new TemplatePlatform({ ...mockMatterbridge, matterbridgeVersion: '2.0.0' }, mockLog, mockConfig)).toThrow(
-      'This plugin requires Matterbridge version >= "3.10.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
+      'This plugin requires Matterbridge version >= "3.10.9". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
     );
   });
 
@@ -144,25 +144,31 @@ describe('Matterbridge Plugin Template', () => {
       if (device.hasClusterServer(OnOff)) {
         await device.executeCommandHandler('on', {}, 'onOff', {} as any, device);
         await device.executeCommandHandler('off', {}, 'onOff', {} as any, device);
-        expect(mockLog.info).toHaveBeenCalledWith('Command on called on cluster onOff');
-        expect(mockLog.info).toHaveBeenCalledWith('Command off called on cluster onOff');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Command on called on cluster onOff');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Command off called on cluster onOff');
+
+        const context = { fabric: undefined } as ActionContext;
+        device.emitCommand(OnOff, 'on', {}, context);
+        device.emitCommand(OnOff, 'off', {}, context);
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Command on executed on cluster onOff');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Command off executed on cluster onOff');
       }
       if (device.hasClusterServer(Thermostat)) {
         const offlineContext = { fabric: undefined } as ActionContext;
         device.eventsOf('thermostat').systemMode$Changed?.emit(Thermostat.SystemMode.Off, Thermostat.SystemMode.Auto, offlineContext);
         device.eventsOf('thermostat').occupiedCoolingSetpoint$Changed?.emit(27, 25, offlineContext);
         device.eventsOf('thermostat').occupiedHeatingSetpoint$Changed?.emit(19, 21, offlineContext);
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute systemMode changed offline from 1 to 0');
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedCoolingSetpoint changed offline from 25 to 27');
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedHeatingSetpoint changed offline from 21 to 19');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute systemMode changed offline from 1 to 0');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute occupiedCoolingSetpoint changed offline from 25 to 27');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute occupiedHeatingSetpoint changed offline from 21 to 19');
 
         const onlineContext = { fabric: 1 } as ActionContext;
         device.eventsOf('thermostat').systemMode$Changed?.emit(Thermostat.SystemMode.Off, Thermostat.SystemMode.Auto, onlineContext);
         device.eventsOf('thermostat').occupiedCoolingSetpoint$Changed?.emit(27, 25, onlineContext);
         device.eventsOf('thermostat').occupiedHeatingSetpoint$Changed?.emit(19, 21, onlineContext);
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute systemMode changed online from 1 to 0');
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedCoolingSetpoint changed online from 25 to 27');
-        expect(mockLog.info).toHaveBeenCalledWith('Attribute occupiedHeatingSetpoint changed online from 21 to 19');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute systemMode changed online from 1 to 0');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute occupiedCoolingSetpoint changed online from 25 to 27');
+        expect(loggerLogSpy).toHaveBeenCalledWith(LogLevel.INFO, 'Attribute occupiedHeatingSetpoint changed online from 21 to 19');
       }
     }
   });
