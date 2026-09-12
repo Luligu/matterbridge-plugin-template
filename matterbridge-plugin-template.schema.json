@@ -1,6 +1,6 @@
 {
-  "title": "Matterbridge test plugin",
-  "description": "matterbridge-test v. 1.0.0 by https://github.com/Luligu",
+  "title": "Matterbridge plugin template",
+  "description": "matterbridge-plugin-template v. 2.1.4 by https://github.com/Luligu",
   "type": "object",
   "properties": {
     "name": {

@@ -28,27 +28,27 @@ If you like this project and find it useful, please consider giving it a star on
 ## Features
 
 - **Dev Container support for instant development environment**.
-- Pre-configured TypeScript, TypeScript Native (tsgo), Oxlint, Oxfmt, Jest and Vitest.
+- Pre-configured TypeScript, TypeScript Native (tsgo), Oxlint, Oxfmt and Vitest.
 - Example project structure for Accessory and Dynamic platforms.
 - Ready for customization for your own plugin.
-- The project has an already configured Jest / Vitest test unit (with 100% coverage) that you can expand while you add your own plugin logic.
-- Cross-platform scripts to remove Jest or Vitest when you choose one test runner.
+- The project has an already configured Vitest test unit (with 100% coverage) that you can expand while you add your own plugin logic.
 
 ## Available workflows
 
 The project has the following already configured workflows:
 
-- **build.yml**: run on push and pull request and build, lint and test the plugin on node 20, 22 and 24 with ubuntu, macOS and windows.
+- **build.yml**: run on push and pull request and build, lint and test the plugin on node 22, 24 and 26 with ubuntu, macOS and windows. Node.js 20.19 is still supported in package.json but is not tested in CI as it has reached EOL.
 - **publish.yml**: publish on npm under tag latest when you create a new release in GitHub and publish under tag dev on npm from main (or dev if it exist) branch every day at midnight UTC if there is a new commit. The workflow has been updated for trusted publishing / OIDC, so you need to setup the package npm settings to allow it (i.e. authorize publish.yml).
-- **codeql.yml**: run CodeQL from the main branch on each push and pull request.
-- **codecov.yml**: run CodeCov from the main branch on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
+- **codeql.yml**: run CodeQL on the main and dev branches on each push and pull request.
+- **codecov.yml**: run CodeCov on the main and dev branches on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
+- **chip-tests.yml**: run the CHIP conformance test suite on ubuntu every monday at 03:00 UTC and on demand (workflow_dispatch). See [chipTests.md](./chipTests.md) and the `chip:start`, `chip:test` and `chip:stop` scripts.
 
 ## ⚠️ Warning: GitHub Actions Costs for Private Repositories
 
 **Important**: If you plan to use this template in a **private repository**, be aware that GitHub Actions usage may incur costs:
 
 - **Free tier limits**: Private repositories have limited free GitHub Actions minutes per month (2,000 minutes for free accounts).
-- **Workflow intensity**: This template includes multiple workflows that run on different operating systems (Ubuntu, macOS, Windows) and Node.js versions (20, 22, 24), which can consume minutes quickly.
+- **Workflow intensity**: This template includes multiple workflows that run on different operating systems (Ubuntu, macOS, Windows) and Node.js versions (22, 24, 26), which can consume minutes quickly.
 - **Daily automated workflows**: The dev publishing workflows run daily, which can add up over time.
 - **Pricing varies by OS**: macOS runners cost 10x more than Ubuntu runners, Windows runners cost 2x more.
 
@@ -63,7 +63,7 @@ The project has the following already configured workflows:
 
 1. Create a repository from this template using the [template feature of GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 2. Clone it locally and open the cloned folder project with [VS Code](https://code.visualstudio.com/). If you have docker or docker desktop, just run `code .`.
-3. When prompted, reopen in the devcontainer. VS Code will automatically build and start the development environment with all dependencies installed.
+3. When prompted, reopen in the devcontainer and select a runtime (**Matterbridge Plugin Node Dev Container** or **Matterbridge Plugin Bun Dev Container**). VS Code will automatically build and start the development environment with all dependencies installed.
 4. Update the code and configuration files as needed for your plugin. Change the name (keep always matterbridge- at the beginning of the name), version, description, author, homepage, repository, bugs and funding in the package.json.
 5. Follow the instructions in the matterbridge [README-DEV](https://github.com/Luligu/matterbridge/blob/main/README-DEV.md) and comments in module.ts to implement your plugin logic.
 
@@ -77,17 +77,19 @@ This template evolves over time to keep up with Matterbridge, Node.js, TypeScrip
 
 If your plugin repository was created from this template, it’s a good habit to review new template releases/commits and selectively copy the relevant files into your plugin repo. Typical “template-owned” areas to keep in sync include:
 
-- `.agents/` (Agents / Codex AI settings)
-- `.claude/` (Claude AI settings)
+- `.agents/` (shared agent instructions: rules and skills — the single source of truth)
+- `.antigravity/` (Gemini / Antigravity settings)
+- `.claude/` (Claude AI settings, mirrored rules and skills)
 - `.codex/` (Codex AI settings)
 - `.devcontainer/` (development environment and extensions)
-- `.github/` (Copilot AI setting and build/publish/CodeQL/Codecov pipelines)
+- `.github/` (Copilot AI settings, mirrored rules and skills, and build/publish/CodeQL/Codecov/CHIP pipelines)
 - `.vscode/` (repo settings and tasks coordinated with tooling configs)
-- `AGENTS.md` (Codex AI instructions)
+- `AGENTS.md` (shared agent instructions)
 - `CLAUDE.md` (Claude AI instructions)
+- `GEMINI.md` (Gemini / Antigravity instructions)
 - `STYLEGUIDE.md` (Generic AI instructions)
-- Tooling configs like `.oxlintrc.json`, `.oxfmtrc.json`, `tsconfig*.json`, `jest.config.js`, `vite.config.ts`
-- Helper scripts under `scripts/` (release/version automation)
+- Tooling configs like `.oxlintrc.json`, `.oxfmtrc.json`, `tsconfig*.json`, `vite.config.ts`
+- Helper scripts under `scripts/` (release/version/CHIP automation)
 
 Tip: prefer copying and adapting these files rather than rewriting them from scratch—staying close to the template makes future updates faster and less error-prone.
 
@@ -95,7 +97,8 @@ Tip: prefer copying and adapting these files rather than rewriting them from scr
 
 - Docker Desktop or Docker Engine are required to use the Dev Container.
 - Devcontainer works correctly on Linux, macOS, Windows, WSL2.
-- The devcontainer provides Node.js, npm, TypeScript, ESLint, Prettier, Jest, Vitest and other tools and extensions pre-installed and configured.
+- Two runtime variants are available, `.devcontainer/node` and `.devcontainer/bun`: choose one when you reopen in the container. See [.devcontainer/README.md](./.devcontainer/README.md) for the lifecycle scripts, volumes and host setup.
+- The devcontainer provides Node.js (or Bun), npm, TypeScript Native (tsgo), oxlint, oxfmt, Vitest and other tools and extensions pre-installed and configured.
 - The dev branch of Matterbridge is already build and installed into the Dev Container and linked to the plugin. The plugin is automatically added to matterbridge.
 - The devcontainer is optimized using named mounts for node_modules, .cache and matterbridge.
 - You can run, build, and test your plugin directly inside the container.
@@ -159,37 +162,57 @@ See also the [Style Guide](./STYLEGUIDE.md) for JSDoc, naming, and logging conve
 - **Much faster builds** — tsgo compiles the project in a fraction of the time required by the standard `tsc` build.
 - **Editor support** — use the VS Code extensions for tsgo and oxc to get the same experience in the editor.
 
+## Agent instructions
+
+[AGENTS.md](./AGENTS.md) and [.agents/](./.agents/) are the **single source of truth** for the instructions given to every coding agent. The per-agent folders below are pointers and mirrors: edit `.agents/` (or `AGENTS.md`), never the copies. See [.agents/README.md](./.agents/README.md) for the full layout.
+
+| File                                            | Notes                                                 |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| `AGENTS.md`                                     | Main project instructions — shared by every agent     |
+| `.agents/README.md`                             | Layout and versioning of the shared instructions      |
+| `.agents/rules/testing.instructions.md`         | Testing standards for unit tests                      |
+| `.agents/rules/matterbridge.instructions.md`    | Creating endpoints and using the single-class devices |
+| `.agents/rules/plugin-frontend.instructions.md` | Serving a plugin's own frontend SPA and REST API      |
+| `.agents/rules/chip-tests.instructions.md`      | The CHIP conformance test harness                     |
+| `.agents/skills/verify-agent-context/SKILL.md`  | Workflow to verify the agent loaded this context      |
+
 ## Copilot instructions
 
 | File                                                                   | Notes                                                                              |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `.github/copilot-instructions.md`                                      | Main project instructions — always loaded                                          |
+| `.github/copilot-instructions.md`                                      | Pointer to AGENTS.md — always loaded                                               |
 | `.github/instructions/chip-tests/chip-tests.instructions.md`           | CHIP conformance test harness — scoped to CHIP test files                          |
 | `.github/instructions/matterbridge/matterbridge.instructions.md`       | Matterbridge endpoint guide — dedicated Copilot instruction file                   |
 | `.github/instructions/plugin-frontend/plugin-frontend.instructions.md` | Plugin frontend SPA and custom REST API guide — scoped to frontend and plugin code |
-| `.github/instructions/testing/unit-tests.instructions.md`              | Testing standards — scoped to `**/*.test.ts`                                       |
+| `.github/instructions/testing/testing.instructions.md`                 | Testing standards — scoped to `**/*.test.ts`                                       |
+| `.github/skills/verify-agent-context/SKILL.md`                         | Skill invocable as `/verify-agent-context`                                         |
 
 ## Claude instructions
 
 | File                                                            | Notes                                                                              |
 | --------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `CLAUDE.md`                                                     | Main project instructions — always loaded                                          |
+| `CLAUDE.md`                                                     | Pointer to AGENTS.md — always loaded                                               |
+| `.claude/settings.json`                                         | Claude permissions: allow, ask and deny rules                                      |
 | `.claude/rules/chip-tests/chip-tests.instructions.md`           | CHIP conformance test harness — scoped to CHIP test files                          |
 | `.claude/rules/matterbridge/matterbridge.instructions.md`       | Matterbridge endpoint guide — loaded for all contexts                              |
 | `.claude/rules/plugin-frontend/plugin-frontend.instructions.md` | Plugin frontend SPA and custom REST API guide — scoped to frontend and plugin code |
-| `.claude/rules/testing/unit-tests.instructions.md`              | Testing standards — scoped to `**/*.test.ts`                                       |
+| `.claude/rules/testing/testing.instructions.md`                 | Testing standards — scoped to `**/*.test.ts`                                       |
+| `.claude/skills/verify-agent-context/SKILL.md`                  | Skill invocable as `/verify-agent-context`                                         |
 
-## Codex/Agents instructions
+## Codex instructions
 
 | File                         | Notes                                             |
 | ---------------------------- | ------------------------------------------------- |
 | `AGENTS.md`                  | Main project instructions                         |
-| `.agents/chip-tests.md`      | CHIP conformance test harness                     |
-| `.agents/matterbridge.md`    | Matterbridge endpoint guide                       |
-| `.agents/plugin-frontend.md` | Plugin frontend SPA and custom REST API guide     |
-| `.agents/testing.md`         | Testing and validation expectations               |
 | `.codex/config.toml`         | Codex project permissions, approvals, and profile |
 | `.codex/rules/default.rules` | Codex command allow, prompt, and deny rules       |
+
+## Gemini / Antigravity instructions
+
+| File                         | Notes                                                 |
+| ---------------------------- | ----------------------------------------------------- |
+| `GEMINI.md`                  | Pointer to AGENTS.md — always loaded                  |
+| `.antigravity/settings.json` | Sandboxing and permissions: allow, ask and deny rules |
 
 ## Development guide
 
