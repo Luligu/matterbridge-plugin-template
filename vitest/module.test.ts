@@ -118,24 +118,24 @@ describe('Matterbridge Plugin Template', () => {
     expect(instance.matterbridge).toBe(mockMatterbridge);
     expect(instance.log).toBe(mockLog);
     expect(instance.config).toBe(mockConfig);
-    expect(mockLog.info).toHaveBeenCalledWith('Initializing Platform...');
+    expect(mockLog.info).toHaveBeenCalledWith('Initializing platform matterbridge-plugin-template...');
   });
 
   it('should start with no devices selected', async () => {
     mockConfig.whiteList = ['No devices'];
     await instance.onStart('Vitest');
-    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Vitest');
+    expect(mockLog.info).toHaveBeenCalledWith('Starting platform matterbridge-plugin-template with reason: Vitest...');
     await instance.onStart();
-    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
+    expect(mockLog.info).toHaveBeenCalledWith('Starting platform matterbridge-plugin-template with reason: no reason provided...');
     expect(addBridgedEndpoint).not.toHaveBeenCalled();
   });
 
   it('should start', async () => {
     mockConfig.whiteList = [];
     await instance.onStart('Vitest');
-    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: Vitest');
+    expect(mockLog.info).toHaveBeenCalledWith('Starting platform matterbridge-plugin-template with reason: Vitest...');
     await instance.onStart();
-    expect(mockLog.info).toHaveBeenCalledWith('onStart called with reason: none');
+    expect(mockLog.info).toHaveBeenCalledWith('Starting platform matterbridge-plugin-template with reason: no reason provided...');
     expect(addBridgedEndpoint).toHaveBeenCalledTimes(2);
   });
 
@@ -175,7 +175,7 @@ describe('Matterbridge Plugin Template', () => {
 
   it('should configure', async () => {
     await instance.onConfigure();
-    expect(mockLog.info).toHaveBeenCalledWith('onConfigure called');
+    expect(mockLog.info).toHaveBeenCalledWith('Configuring platform matterbridge-plugin-template...');
     expect(mockLog.info).toHaveBeenCalledWith(expect.stringContaining('Configuring device'));
   });
 
@@ -186,13 +186,13 @@ describe('Matterbridge Plugin Template', () => {
 
   it('should shutdown', async () => {
     await instance.onShutdown('Vitest');
-    expect(mockLog.info).toHaveBeenCalledWith('onShutdown called with reason: Vitest');
+    expect(mockLog.info).toHaveBeenCalledWith('Shutting down platform matterbridge-plugin-template with reason: Vitest...');
     expect(removeAllBridgedEndpoints).not.toHaveBeenCalled();
 
     // Mock the unregisterOnShutdown behavior
     mockConfig.unregisterOnShutdown = true;
     await instance.onShutdown();
-    expect(mockLog.info).toHaveBeenCalledWith('onShutdown called with reason: none');
+    expect(mockLog.info).toHaveBeenCalledWith('Shutting down platform matterbridge-plugin-template with reason: no reason provided...');
     expect(removeAllBridgedEndpoints).toHaveBeenCalled();
     mockConfig.unregisterOnShutdown = false;
   });

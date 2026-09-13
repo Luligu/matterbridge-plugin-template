@@ -59,12 +59,14 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
       );
     }
 
-    this.log.info(`Initializing Platform...`);
+    this.log.info(`Initializing platform ${this.config.name}...`);
     // You can initialize your platform here, like setting up initial state or loading configurations.
+
+    this.log.info(`Platform ${this.config.name} initialized successfully`);
   }
 
   override async onStart(reason?: string): Promise<void> {
-    this.log.info(`onStart called with reason: ${reason ?? 'none'}`);
+    this.log.info(`Starting platform ${this.config.name} with reason: ${reason ?? 'no reason provided'}...`);
 
     // Wait for the platform to fully load the select if you use them.
     await this.ready;
@@ -74,27 +76,33 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
 
     // Implements your own logic there
     await this.discoverDevices();
+
+    this.log.info(`Platform ${this.config.name} started successfully`);
   }
 
   override async onConfigure(): Promise<void> {
     // Always call super.onConfigure()
     await super.onConfigure();
 
-    this.log.info('onConfigure called');
+    this.log.info(`Configuring platform ${this.config.name}...`);
 
     // Configure all your devices. The persisted attributes need to be updated.
     for (const device of this.getDevices()) {
       this.log.info(`Configuring device ${device.deviceName} with id ${device.originalId}`);
       // You can update the device state here, for example:
       if (device.id === 'outlet1') {
+        // Set the outlet to be on by default with setCluster or setAttribute methods.
         // await device.setCluster(OnOff, { onOff: true }, this.log); // this.log is optional, but it is useful to log the attribute changes.
         await device.setAttribute(OnOff, 'onOff', true, this.log); // this.log is optional, but it is useful to log the attribute changes.
       }
       if (device.id === 'thermo1') {
+        // Set the thermostat to heat mode by default with setCluster or setAttribute methods.
         await device.setCluster(Thermostat, { systemMode: Thermostat.SystemMode.Heat }, this.log); // this.log is optional, but it is useful to log the attribute changes.
         // await device.setAttribute(Thermostat, 'systemMode', Thermostat.SystemMode.Heat, this.log); // this.log is optional, but it is useful to log the attribute changes.
       }
     }
+
+    this.log.info(`Platform ${this.config.name} configured successfully`);
   }
 
   // oxlint-disable-next-line typescript/require-await
@@ -107,8 +115,11 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
     // Always call super.onShutdown(reason)
     await super.onShutdown(reason);
 
-    this.log.info(`onShutdown called with reason: ${reason ?? 'none'}`);
+    this.log.info(`Shutting down platform ${this.config.name} with reason: ${reason ?? 'no reason provided'}...`);
+
     if (this.config.unregisterOnShutdown) await this.unregisterAllDevices();
+
+    this.log.info(`Platform ${this.config.name} shut down successfully`);
   }
 
   private async discoverDevices(): Promise<void> {
@@ -186,5 +197,7 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
       // Register the device with this Matterbridge Platform.
       await this.registerDevice(thermo);
     }
+
+    this.log.info('Devices registered successfully...');
   }
 }
