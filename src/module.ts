@@ -91,12 +91,12 @@ export class TemplatePlatform extends MatterbridgeDynamicPlatform {
       this.log.info(`Configuring device ${device.deviceName} with id ${device.originalId}`);
       // You can update the device state here, for example:
       if (device.id === 'outlet1') {
-        // Set the outlet to be on by default with setCluster or setAttribute methods.
+        // Set the outlet to be on by default with setCluster or setAttribute methods. Prefer setting the cluster when more attributes need to be updated.
         // await device.setCluster(OnOff, { onOff: true }, this.log); // this.log is optional, but it is useful to log the attribute changes.
         await device.setAttribute(OnOff, 'onOff', true, this.log); // this.log is optional, but it is useful to log the attribute changes.
       }
       if (device.id === 'thermo1') {
-        // Set the thermostat to heat mode by default with setCluster or setAttribute methods.
+        // Set the thermostat to heat mode by default with setCluster or setAttribute methods. Prefer setting the cluster when more attributes need to be updated.
         await device.setCluster(Thermostat, { systemMode: Thermostat.SystemMode.Heat }, this.log); // this.log is optional, but it is useful to log the attribute changes.
         // await device.setAttribute(Thermostat, 'systemMode', Thermostat.SystemMode.Heat, this.log); // this.log is optional, but it is useful to log the attribute changes.
       }
