@@ -73,7 +73,6 @@
     "version": true,
     "publish": true,
     "chip": true,
-    "workflow": "dev",
     "coverage": {
       "lines": 100,
       "functions": 100,
@@ -138,12 +137,12 @@
     "node-persist-manager": "2.1.1"
   },
   "devDependencies": {
-    "@types/node": "24.13.4",
-    "@vitest/coverage-v8": "5.0.0",
-    "oxfmt": "0.67.0",
-    "oxlint": "1.82.0",
-    "oxlint-tsgolint": "7.0.2001",
+    "@types/node": "26.6.2",
+    "@vitest/coverage-v8": "5.0.1",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.83.0",
+    "oxlint-tsgolint": "7.0.2002",
     "typescript": "7.0.2",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   }
 }

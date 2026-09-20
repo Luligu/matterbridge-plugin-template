@@ -72,7 +72,7 @@ only author a `chipTests.json` for the new repo.
 
 ```shell
 node scripts/run-chip-tests.mjs --start   # create the container, npm install/link/build, copy the plugin in, matterbridge --add, write config, restart
-node scripts/run-chip-tests.mjs           # run every test in chipTests.json's "yamlTests" and "phytonTests" arrays against the running container
+node scripts/run-chip-tests.mjs           # run every test in chipTests.json's "yamlTests" and "pythonTests" arrays against the running container
 node scripts/run-chip-tests.mjs --test X  # run only tests whose "name" or "test" (filename) includes X, case-insensitive substring match
 node scripts/run-chip-tests.mjs --stop    # docker stop the container, then npm install/link/build locally to restore the local dev environment
 ```
