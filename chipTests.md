@@ -75,7 +75,7 @@ node scripts/run-chip-tests.mjs --stop
   `/root/matterbridge.pics`, since the curated image PICS has no `TSTAT` section and the generic
   `ci-pics-values` overclaims `TSTAT.S.F08`/`TSTAT.S.F0a` (Presets/ThermostatSuggestions) support this
   device doesn't have. `thermo1` is registered via `createDefaultThermostatClusterServer(23, 21, 25, 2.5, 7,
-30, 16, 35)` in `src/module.ts` so its setpoint limits satisfy the Matter spec's 7 °C minimum for
+  30, 16, 35)` in `src/module.ts` so its setpoint limits satisfy the Matter spec's 7 °C minimum for
   `MinHeatSetpointLimit` (the library default of 0-50 °C fails `Test_TC_TSTAT_2_1`'s constraint check).
 - `Test_TC_TSTAT_3_2` requires PICS `TSTAT.C` (DUT acting as a Thermostat client); this plugin's thermostat
   is server-only, so the test's role doesn't apply. Marked `"skip": true`.

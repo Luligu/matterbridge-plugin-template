@@ -37,6 +37,7 @@ const mockMatterbridge: PlatformMatterbridge = {
     osArch: 'x64',
     totalMemory: '0 B',
     freeMemory: '0 B',
+    constrainedMemory: '0 B',
     systemUptime: '0s',
     processUptime: '0s',
     cpuUsage: '0%',
