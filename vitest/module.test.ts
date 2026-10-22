@@ -53,9 +53,9 @@ const mockMatterbridge: PlatformMatterbridge = {
   matterbridgePluginDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'Matterbridge'),
   matterbridgeCertDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', '.mattercert'),
   globalModulesDirectory: path.join('.cache', 'vitest', 'TemplatePlugin', 'node_modules'),
-  matterbridgeVersion: '3.10.10',
-  matterbridgeLatestVersion: '3.10.10',
-  matterbridgeDevVersion: '3.10.10',
+  matterbridgeVersion: '3.11.0',
+  matterbridgeLatestVersion: '3.11.0',
+  matterbridgeDevVersion: '3.11.0',
   frontendVersion: '3.0.0',
   bridgeMode: 'bridge',
   restartMode: 'docker',
@@ -107,7 +107,7 @@ describe('Matterbridge Plugin Template', () => {
 
   it('should throw an error if matterbridge is not the required version', () => {
     expect(() => new TemplatePlatform({ ...mockMatterbridge, matterbridgeVersion: '2.0.0' }, mockLog, mockConfig)).toThrow(
-      'This plugin requires Matterbridge version >= "3.10.10". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
+      'This plugin requires Matterbridge version >= "3.11.0". Please update Matterbridge from 2.0.0 to the latest version in the frontend.',
     );
   });
 
