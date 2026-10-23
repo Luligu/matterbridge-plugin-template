@@ -38,7 +38,7 @@ If you like this project and find it useful, please consider giving it a star on
 
 The project has the following already configured workflows:
 
-- **build.yml**: run on push and pull request and build, lint and test the plugin on node 22, 24 and 26 with ubuntu, macOS and windows. Node.js 20.19 is still supported in package.json but is not tested in CI as it has reached EOL.
+- **build.yml**: run on push and pull request and build, lint and test the plugin on node 22, 24 and 26 with ubuntu, macOS and windows.
 - **publish.yml**: publish on npm under tag latest when you create a new release in GitHub and publish under tag dev on npm from main (or dev if it exist) branch every day at midnight UTC if there is a new commit. The workflow has been updated for trusted publishing / OIDC, so you need to setup the package npm settings to allow it (i.e. authorize publish.yml).
 - **codeql.yml**: run CodeQL on the main and dev branches on each push and pull request.
 - **codecov.yml**: run CodeCov on the main and dev branches on each push and pull request. You need a codecov account and to add your CODECOV_TOKEN to the repository secrets.
