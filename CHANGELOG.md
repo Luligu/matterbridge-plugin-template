@@ -33,6 +33,21 @@ If you like this project and find it useful, please consider giving it a star on
 >
 > Keeping your plugin repository aligned with the latest template is important for security, CI reliability, and developer experience. See the Periodical Updates section in the [README](README.md#periodical-updates) for guidance on what to periodically copy/update (e.g., `.devcontainer`, workflows, and tooling configs).
 
+## [2.2.1] - Dev branch
+
+### Changed
+
+- [vscode]: Update `.vscode/tasks.json` to v.1.0.5: add local flag to pack tasks and download install scripts before execution in Docker tasks.
+- [agents]: Update `.agents/rules/plugin-frontend.instructions.md` to v.1.0.2: document base path preservation under Home Assistant Ingress and trailing slash requirements.
+- [agents]: Update `.codex/config.toml` to v.1.0.6: document default permissions profile.
+- [scripts]: Update `scripts/git-sync-dev.mjs` to v.2.1.0: verify local dev includes origin/dev commits and use `--force-if-includes`.
+- [scripts]: Update `scripts/prepublish-clean.mjs` to v.2.2.0: strip package.json fields directly and enhance logging.
+- [package]: Bump `oxfmt` to v.0.75.0.
+- [package]: Bump `oxlint` to v.1.90.0.
+- [package]: Bump `oxlint-tsgolint` to v.7.0.2005.
+
+<a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
+
 ## [2.2.0] - 2026-10-23
 
 ### Breaking changes

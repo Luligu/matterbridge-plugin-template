@@ -1,6 +1,6 @@
 {
   "name": "matterbridge-plugin-template",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Matterbridge Template Plugin",
   "author": "https://github.com/Luligu",
   "license": "Apache-2.0",
@@ -115,8 +115,8 @@
     "git:hardreset:main": "git fetch origin && git checkout main && git reset --hard origin/main",
     "git:hardreset:dev": "git fetch origin && git checkout dev && git reset --hard origin/dev",
     "git:hardreset:edge": "git fetch origin && git checkout edge && git reset --hard origin/edge",
-    "git:merge:dev": "git fetch origin && git checkout -b dev-backup-001 && git checkout dev && git merge origin/main && git push origin dev",
-    "git:rebase:dev": "git fetch origin && git checkout -b dev-backup-001 && git checkout dev && git rebase origin/main && git push --force-with-lease origin dev",
+    "git:merge:dev": "node scripts/git-sync-dev.mjs merge",
+    "git:rebase:dev": "node scripts/git-sync-dev.mjs rebase",
     "chip:start": "node scripts/run-chip-tests.mjs --start",
     "chip:test": "node scripts/run-chip-tests.mjs",
     "chip:stop": "node scripts/run-chip-tests.mjs --stop",
@@ -125,7 +125,7 @@
     "checkDependencies": "npx --yes --package npm-check-updates@latest ncu",
     "updateDependencies": "npx --yes --package npm-check-updates@latest ncu -u && npm run softReset",
     "runMeBeforePublish": "npm run cleanBuild && npm run format && npm run lint && npm run build && npm run typecheck && npm run test:coverage",
-    "prepublishOnly": "npm run cleanBuildProduction && npm pkg delete devDependencies scripts automator && node scripts/prepublish-clean.mjs && npm install --no-fund --no-audit --omit=dev && npm shrinkwrap --omit=dev",
+    "prepublishOnly": "npm run cleanBuildProduction && node scripts/prepublish-clean.mjs && npm install --no-fund --no-audit --omit=dev && npm shrinkwrap --omit=dev",
     "npmPack": "npx shx cp package.json package.json.backup && node scripts/version.mjs dev && npm run prepublishOnly && npm pack && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
     "npmPublishTagDev": "npx shx cp package.json package.json.backup && node scripts/version.mjs dev && npm run prepublishOnly && npm publish --tag dev && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
     "npmPublishTagEdge": "npx shx cp package.json package.json.backup && node scripts/version.mjs edge && npm run prepublishOnly && npm publish --tag edge && npx shx cp package.json.backup package.json && npx shx rm -f package.json.backup && npm run reset",
@@ -138,9 +138,9 @@
   "devDependencies": {
     "@types/node": "26.6.5",
     "@vitest/coverage-v8": "5.0.5",
-    "oxfmt": "0.74.0",
-    "oxlint": "1.89.0",
-    "oxlint-tsgolint": "7.0.2004",
+    "oxfmt": "0.75.0",
+    "oxlint": "1.90.0",
+    "oxlint-tsgolint": "7.0.2005",
     "typescript": "7.0.2",
     "vitest": "5.0.5"
   }
