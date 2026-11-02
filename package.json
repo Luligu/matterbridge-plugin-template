@@ -68,7 +68,6 @@
     "node": true,
     "plugin": true,
     "vitest": true,
-    "native": true,
     "git": true,
     "version": true,
     "publish": true,
