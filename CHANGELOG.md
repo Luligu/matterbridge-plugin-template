@@ -38,21 +38,39 @@ If you like this project and find it useful, please consider giving it a star on
 ### Changed
 
 - [vscode]: Update `.vscode/tasks.json` to v.1.0.5: add local flag to pack tasks and download install scripts before execution in Docker tasks.
-- [agents]: Update `.agents/rules/plugin-frontend.instructions.md` to v.1.0.2: document base path preservation under Home Assistant Ingress and trailing slash requirements.
-- [agents]: Update `.codex/config.toml` to v.1.0.6: document default permissions profile.
+- [agents]: Update `.agents/rules/plugin-frontend.instructions.md`, `.claude/rules/plugin-frontend/plugin-frontend.instructions.md` and `.github/instructions/plugin-frontend/plugin-frontend.instructions.md` to v.1.0.3.
+- [codex]: Update `.codex/config.toml` to v.1.0.7.
 - [scripts]: Update `scripts/git-sync-dev.mjs` to v.2.1.0: verify local dev includes origin/dev commits and use `--force-if-includes`.
 - [scripts]: Update `scripts/prepublish-clean.mjs` to v.2.2.0: strip package.json fields directly and enhance logging.
-- [package]: Bump `oxfmt` to v.0.75.0.
-- [package]: Bump `oxlint` to v.1.90.0.
-- [package]: Bump `oxlint-tsgolint` to v.7.0.2005.
+- [package]: Bump `oxfmt` to v.0.77.0.
+- [package]: Bump `oxlint` to v.1.92.0.
+- [package]: Bump `oxlint-tsgolint` to v.7.0.2006.
 - [package]: Bump `@types/node` to v.26.6.6.
 - [agents]: Update `.github/commit-message-instructions.md` to v.1.0.1.
-- [vscode]: Update `.vscode/settings.json` to v.1.0.17.
-- [agents]: Update `AGENTS.md` to v.1.0.8.
+- [vscode]: Update `.vscode/settings.json` to v.1.0.18.
+- [agents]: Update `AGENTS.md` to v.1.0.12.
 - [config]: Update `CODE_OF_CONDUCT.md` to v.1.0.0.
 - [config]: Update `CONTRIBUTING.md` to v.1.0.1.
-- [config]: Add `SHARED-AGENTS.md`.
+- [config]: Update `SHARED-AGENTS.md`.
 - [config]: Add `TOOLCHAIN.md` v.1.0.1.
+- [package]: Bump `@vitest/coverage-v8` to v.5.1.0.
+- [package]: Bump `vitest` to v.5.1.0.
+- [agents]: Update `.agents/README.md` to v.1.0.6.
+- [agents]: Update `.agents/rules/chip-tests.instructions.md`, `.claude/rules/chip-tests/chip-tests.instructions.md` and `.github/instructions/chip-tests/chip-tests.instructions.md` to v.1.0.1.
+- [agents]: Update `.agents/rules/matterbridge.instructions.md`, `.claude/rules/matterbridge/matterbridge.instructions.md` and `.github/instructions/matterbridge/matterbridge.instructions.md` to v.1.0.4.
+- [agents]: Update `.agents/rules/testing.instructions.md`, `.claude/rules/testing/testing.instructions.md` and `.github/instructions/testing/testing.instructions.md` to v.1.0.8.
+- [agents]: Update `.agents/skills/verify-agent-context/SKILL.md`, `.claude/skills/verify-agent-context/SKILL.md` and `.github/skills/verify-agent-context/SKILL.md` to v.1.0.6.
+- [agents]: Update `.antigravity/settings.json` to v.1.0.6.
+- [agents]: Update `.claude/settings.json` to v.1.0.10.
+- [codex]: Update `.codex/rules/default.rules` to v.1.0.7.
+- [workflows]: Update `.github/workflows/build.yml` to v.2.0.8.
+- [workflows]: Update `.github/workflows/codecov.yml` to v.2.0.8.
+- [workflows]: Update `.github/workflows/codeql.yml` to v.2.0.0.
+- [workflows]: Update `.github/workflows/publish.yml` to v.2.0.7.
+- [config]: Update `.gitignore` to v.1.0.5.
+- [config]: Update `.oxfmtrc.json` to v.1.2.0.
+- [config]: Update `.oxlintrc.json` to v.1.2.0.
+- [config]: Update `vitest.config.ts` to v.2.0.9.
 
 <a href="https://www.buymeacoffee.com/luligugithub"><img src="https://matterbridge.io/assets/bmc-button.svg" alt="Buy me a coffee" width="80"></a>
 
